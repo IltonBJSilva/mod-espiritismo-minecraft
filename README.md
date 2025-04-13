@@ -19,8 +19,8 @@ Este mod introduz uma nova camada de gameplay ao Minecraft, com:
 
 ## 📦 Status do Projeto
 
-🚧 Em desenvolvimento (versão inicial / MVP sendo estruturada)  
-🔨 Primeira classe: **Médium**  
+🚧 Em desenvolvimento (versão inicial / MVP sendo estruturada)
+🔨 Primeira classe: **Médium**
 🧱 Estrutura inicial: **Centro Espírita**
 
 ---
@@ -36,6 +36,8 @@ O objetivo não é converter, mas **educar e refletir** por meio do universo dos
 - Minecraft Java Edition (1.xx)
 - [Forge](https://files.minecraftforge.net/) ou [Fabric](https://fabricmc.net/) (definir)
 - Minecraft Modding API
+- Blockbench
+- Mcreator
 - Java
 
 ---
@@ -71,8 +73,7 @@ Este projeto é **não oficial** e não possui vínculo com Mojang, Microsoft, n
 
 ## ⭐ Inspiração
 
-> “Nascer, morrer, renascer ainda e progredir sempre, tal é a lei.”  
+> “Nascer, morrer, renascer ainda e progredir sempre, tal é a lei.”
 > — Allan Kardec
 
 ---
-
