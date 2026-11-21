@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "exclusion_zone": {
+      "chunk_count": 4,
+      "other_set": "minecraft:villages"
+    },
+    "salt": 73019237,
+    "separation": 24,
+    "spacing": 70
+  },
+  "structures": [
+    {
+      "structure": "mod_espiritismo_minecraft:centro_grande",
+      "weight": 1
+    }
+  ]
+}

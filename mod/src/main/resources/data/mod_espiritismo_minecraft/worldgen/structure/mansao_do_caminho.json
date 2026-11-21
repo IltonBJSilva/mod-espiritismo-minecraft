@@ -1,0 +1,8 @@
+{
+  "type": "mod_espiritismo_minecraft:construcao_espirita",
+  "biomes": "#mod_espiritismo_minecraft:has_structure/mansao_do_caminho",
+  "modelo": "mansao_do_caminho",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_box"
+}

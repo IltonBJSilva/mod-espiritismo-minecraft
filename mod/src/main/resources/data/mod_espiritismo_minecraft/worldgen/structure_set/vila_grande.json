@@ -1,0 +1,34 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "exclusion_zone": {
+      "chunk_count": 8,
+      "other_set": "minecraft:villages"
+    },
+    "salt": 73019281,
+    "separation": 24,
+    "spacing": 64
+  },
+  "structures": [
+    {
+      "structure": "mod_espiritismo_minecraft:vila_grande",
+      "weight": 1
+    },
+    {
+      "structure": "mod_espiritismo_minecraft:vila_grande_deserto",
+      "weight": 1
+    },
+    {
+      "structure": "mod_espiritismo_minecraft:vila_grande_savana",
+      "weight": 1
+    },
+    {
+      "structure": "mod_espiritismo_minecraft:vila_grande_taiga",
+      "weight": 1
+    },
+    {
+      "structure": "mod_espiritismo_minecraft:vila_grande_neve",
+      "weight": 1
+    }
+  ]
+}

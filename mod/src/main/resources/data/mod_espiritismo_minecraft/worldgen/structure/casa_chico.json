@@ -1,0 +1,8 @@
+{
+  "type": "mod_espiritismo_minecraft:construcao_espirita",
+  "biomes": "#mod_espiritismo_minecraft:has_structure/casa_chico",
+  "modelo": "casa_chico",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_box"
+}

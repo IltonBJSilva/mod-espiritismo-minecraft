@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "exclusion_zone": {
+      "chunk_count": 4,
+      "other_set": "minecraft:villages"
+    },
+    "salt": 73019253,
+    "separation": 40,
+    "spacing": 112
+  },
+  "structures": [
+    {
+      "structure": "mod_espiritismo_minecraft:casa_chico",
+      "weight": 1
+    }
+  ]
+}

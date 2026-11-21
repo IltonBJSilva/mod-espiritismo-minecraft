@@ -1,0 +1,8 @@
+{
+  "type": "mod_espiritismo_minecraft:construcao_espirita",
+  "biomes": "#mod_espiritismo_minecraft:has_structure/centro_pequeno",
+  "modelo": "centro_pequeno",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_box"
+}
