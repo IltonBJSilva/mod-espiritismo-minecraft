@@ -1,0 +1,23 @@
+{
+  "parent": "mod_espiritismo_minecraft:jornada/raiz",
+  "display": {
+    "icon": {
+      "id": "mod_espiritismo_minecraft:livrodos_espiritos"
+    },
+    "title": {
+      "text": "Que é Deus?"
+    },
+    "description": {
+      "text": "Leia O Livro dos Espíritos pela primeira vez"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "concedido": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "parent": "mod_espiritismo_minecraft:jornada/primeira_leitura",
+  "display": {
+    "icon": {
+      "id": "mod_espiritismo_minecraft:agua_fluidificada"
+    },
+    "title": {
+      "text": "Fluidos de Paz"
+    },
+    "description": {
+      "text": "Receba a água fluidificada de Chico Xavier"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "concedido": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

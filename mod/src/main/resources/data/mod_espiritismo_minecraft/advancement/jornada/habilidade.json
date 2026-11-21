@@ -1,0 +1,23 @@
+{
+  "parent": "mod_espiritismo_minecraft:jornada/caminho",
+  "display": {
+    "icon": {
+      "id": "minecraft:amethyst_shard"
+    },
+    "title": {
+      "text": "Primeiro Serviço"
+    },
+    "description": {
+      "text": "Use a habilidade da sua classe (tecla V)"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "concedido": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

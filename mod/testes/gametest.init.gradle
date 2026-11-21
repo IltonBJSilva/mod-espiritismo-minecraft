@@ -1,0 +1,13 @@
+// Configuração dos GameTests do Mod Espiritismo.
+// Fica fora do mcreator.gradle porque o MCreator apaga aquele arquivo.
+// Uso:  ./gradlew -I testes/gametest.init.gradle runGameTestServer --offline
+allprojects {
+    pluginManager.withPlugin('net.neoforged.moddev') {
+        neoForge.runs.create('gameTestServer') { r ->
+            r.type = 'gameTestServer'
+            r.gameDirectory = project.file('run-gametest')
+            r.systemProperty 'neoforge.enabledGameTestNamespaces', 'mod_espiritismo_minecraft'
+            r.programArguments.addAll('--tests', 'mod_espiritismo_minecraft:*', '--report', 'gametest-report.xml')
+        }
+    }
+}

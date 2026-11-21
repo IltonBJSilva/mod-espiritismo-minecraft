@@ -1,0 +1,23 @@
+{
+  "parent": "mod_espiritismo_minecraft:jornada/caridade",
+  "display": {
+    "icon": {
+      "id": "minecraft:lantern"
+    },
+    "title": {
+      "text": "Um Caminho de Serviço"
+    },
+    "description": {
+      "text": "Escolha sua classe espiritual com Allan Kardec"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "concedido": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
