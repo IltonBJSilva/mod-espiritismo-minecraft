@@ -4,6 +4,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerWakeUpEvent;
@@ -33,6 +34,8 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.Commands;
 import net.minecraft.ChatFormatting;
 
+import net.minecraft.world.item.ItemStack;
+
 import net.mcreator.modespiritismominecraft.espiritismo.estado.Estados;
 import net.mcreator.modespiritismominecraft.espiritismo.estado.EstadoEspiritual;
 import net.mcreator.modespiritismominecraft.espiritismo.Moralidade;
@@ -60,8 +63,11 @@ public final class EventosDimensao {
 	private static final Set<UUID> ACORDARAM = new HashSet<>();
 	/** Entraram em Nosso Lar sem critério: são reconduzidos no próximo tick (fora do evento de troca de dimensão). */
 	private static final Map<UUID, ResourceKey<Level>> RECONDUZIR = new HashMap<>();
-	/** Confirmação (atril do Auxílio / saída assistida no posto): jogador → tick até quando vale. */
-	private static final Map<UUID, Long> CONFIRMAR = new HashMap<>();
+	/** Confirmação pendente (segundo clique): qual ação e até quando vale. */
+	private record Confirmacao(String chave, long ate) {
+	}
+
+	private static final Map<UUID, Confirmacao> CONFIRMAR = new HashMap<>();
 	private static boolean ganchoPrece = false;
 
 	private EventosDimensao() {
@@ -188,6 +194,8 @@ public final class EventosDimensao {
 		if (sonho > 0) {
 			if (agora >= sonho)
 				Planos.terminarSonho(p);
+			else if (p.level().dimension() == Planos.NOSSO_LAR)
+				Planos.tickNossoLar(p); // a regra de limite do sonho (não ir além da colônia) também vale
 			return;
 		}
 		ResourceKey<Level> dim = p.level().dimension();
@@ -316,17 +324,48 @@ public final class EventosDimensao {
 		ACORDARAM.clear();
 	}
 
+	// ================================================================ Nada material se leva
+
+	/**
+	 * Em sonho (visita assistida) e nos planos espirituais não se larga item: impede levar objetos de uma vida a outra
+	 * (largar em Nosso Lar/Umbral e recolher depois de renascer, ou trazer algo do sonho). O item volta ao inventário.
+	 */
+	public static boolean impedeLargar(ServerPlayer p) {
+		if (p.isCreative() || p.isSpectator())
+			return false;
+		return impedeLargar(p.level().dimension(), p.getData(RegistroDimensao.SONHO_FIM) > 0, Estados.get(p));
+	}
+
+	/** Regra pura de {@link #impedeLargar(ServerPlayer)}. */
+	public static boolean impedeLargar(ResourceKey<Level> dim, boolean sonhando, EstadoEspiritual e) {
+		return dim == Planos.NOSSO_LAR || dim == Planos.UMBRAL || sonhando || e == EstadoEspiritual.EM_VISITA_ASSISTIDA;
+	}
+
+	@SubscribeEvent
+	public static void largarItem(ItemTossEvent event) {
+		if (!(event.getPlayer() instanceof ServerPlayer p) || !impedeLargar(p))
+			return;
+		event.setCanceled(true);
+		ItemStack pilha = event.getEntity().getItem().copy();
+		event.getEntity().discard();
+		if (!pilha.isEmpty())
+			p.getInventory().placeItemBackInInventory(pilha);
+		p.containerMenu.broadcastChanges();
+		if (Moralidade.pronto(p, "dim_largar", 40))
+			p.sendOverlayMessage(Component.literal("Nada material se leva: aqui os objetos não são deixados para trás.").withStyle(ChatFormatting.GRAY));
+	}
+
 	// ================================================================ Interações
 
 	private static boolean confirmou(ServerPlayer p, String chave) {
 		long agora = p.level().getGameTime();
 		UUID id = p.getUUID();
-		Long ate = CONFIRMAR.get(id);
-		if (ate != null && agora <= ate) {
+		Confirmacao c = CONFIRMAR.get(id);
+		if (c != null && agora <= c.ate() && c.chave().equals(chave)) {
 			CONFIRMAR.remove(id);
 			return true;
 		}
-		CONFIRMAR.put(id, agora + 200);
+		CONFIRMAR.put(id, new Confirmacao(chave, agora + 200));
 		return false;
 	}
 

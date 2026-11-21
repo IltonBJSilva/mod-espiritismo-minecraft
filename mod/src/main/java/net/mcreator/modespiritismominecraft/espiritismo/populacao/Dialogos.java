@@ -75,6 +75,8 @@ public final class Dialogos {
 			return;
 		if (ctx.primeiroEncontro())
 			return;
+		if (SaidaAcompanhada.conversar(player, p))
+			return;
 		Escolha e = escolher(p, ctx, m.getRandom(), m.ultimaFala);
 		if (e.chave() != null)
 			Memoria.marcar(player, "explicou:" + p.id() + ":" + e.chave());

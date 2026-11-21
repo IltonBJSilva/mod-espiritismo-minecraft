@@ -382,8 +382,12 @@ public final class Pecas {
 			for (int z = -10; z <= 10; z++) {
 				if (Math.abs(z) <= 1)
 					continue;
-				for (int h = 0; h <= 2; h++)
-					l.bloco(c.offset(x, h, z), Blocks.BOOKSHELF.defaultBlockState());
+				for (int h = 0; h <= 2; h++) {
+					// Estantes espíritas (catálogo da biblioteca) à beira do corredor central, ao alcance de quem entra.
+					boolean espirita = h == 0 && z == 2 && (x == -6 || x == 0 || x == 6);
+					l.bloco(c.offset(x, h, z), espirita ? net.mcreator.modespiritismominecraft.espiritismo.biblioteca.RegistroBiblioteca.ESTANTE.get().defaultBlockState()
+							: Blocks.BOOKSHELF.defaultBlockState());
+				}
 			}
 		for (int z : new int[]{-1, 1})
 			l.bloco(c.offset(-7, 0, z * 3), Blocks.LECTERN.defaultBlockState().setValue(LecternBlock.FACING, Direction.EAST));

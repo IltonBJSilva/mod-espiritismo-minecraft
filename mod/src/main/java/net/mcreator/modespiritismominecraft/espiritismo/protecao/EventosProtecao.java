@@ -36,7 +36,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.BlockPos;
 
+import net.mcreator.modespiritismominecraft.espiritismo.dimensao.Planos;
 import net.mcreator.modespiritismominecraft.espiritismo.colonia.Lote;
+import net.mcreator.modespiritismominecraft.espiritismo.colonia.Aerobus;
 import net.mcreator.modespiritismominecraft.espiritismo.colonia.ColoniaApi;
 import net.mcreator.modespiritismominecraft.ModEspiritismoMinecraftMod;
 
@@ -113,6 +115,8 @@ public final class EventosProtecao {
 		// Nunca usar o item no bloco (colocar, ferramenta, farinha de osso, isqueiro, ovo, balde...).
 		event.setUseItem(TriState.FALSE);
 		BlockState s = level.getBlockState(event.getPos());
+		if (atrilFuncional(level, event.getPos(), s))
+			return; // atril do Auxílio, do Mirante ou de estação do aeróbus: funciona sem aviso de proteção
 		if (!PoliticaProtecao.usoPermitido(s, mao.isEmpty())) {
 			event.setUseBlock(TriState.FALSE);
 			if (!mao.isEmpty())
@@ -121,6 +125,15 @@ public final class EventosProtecao {
 				MensagensProtecao.avisar(p, MensagensProtecao.Tipo.OBJETO);
 		} else if (!mao.isEmpty() && (mao.getItem() instanceof BlockItem || mao.getItem() instanceof BucketItem || mao.getItem() instanceof FlintAndSteelItem))
 			MensagensProtecao.avisar(p, mao.getItem() instanceof BlockItem ? MensagensProtecao.Tipo.COLOCAR : avisoItem(mao, s));
+	}
+
+	/** Atris com função na colônia (tratados pelas áreas dimensao/colonia): o clique não é "mexer no cenário". */
+	static boolean atrilFuncional(Level level, BlockPos pos, BlockState s) {
+		if (!(level instanceof ServerLevel sl) || sl.dimension() != Planos.NOSSO_LAR || !s.is(Blocks.LECTERN))
+			return false;
+		if (pos.equals(Planos.ponto(sl, "auxilio")) || pos.equals(Planos.ponto(sl, "mirante")))
+			return true;
+		return Aerobus.estacaoDoAtril(Planos.pontos(sl), pos) != null;
 	}
 
 	private static MensagensProtecao.Tipo avisoItem(ItemStack mao, BlockState s) {

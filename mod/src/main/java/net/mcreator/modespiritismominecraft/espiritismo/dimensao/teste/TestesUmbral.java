@@ -68,6 +68,7 @@ public final class TestesUmbral {
 		TESTES.put("umb_estados_migracao_reconexao", new Teste(40, TestesUmbral::migracao));
 		TESTES.put("umb_sem_violencia", new Teste(40, TestesUmbral::semViolencia));
 		TESTES.put("umb_paciente_nao_ajuda_paciente", new Teste(20, TestesUmbral::podeSocorrer));
+		TESTES.put("umb_nada_material_se_leva", new Teste(20, TestesUmbral::nadaMaterial));
 		TESTES.put("umb_resgate_consentimento", new Teste(60, TestesUmbral::consentimento));
 		TESTES.put("umb_resgate_reconexao", new Teste(40, TestesUmbral::resgateReconexao));
 		TESTES.put("umb_perturbacao_e_medium", new Teste(20, TestesUmbral::perturbacao));
@@ -222,6 +223,15 @@ public final class TestesUmbral {
 	}
 
 	// ---------------------------------------------------------------- Paciente não ajuda paciente
+
+	private static void nadaMaterial(GameTestHelper helper) {
+		helper.assertTrue(EventosDimensao.impedeLargar(Planos.NOSSO_LAR, false, EM_NOSSO_LAR), "não larga item em Nosso Lar");
+		helper.assertTrue(EventosDimensao.impedeLargar(Planos.UMBRAL, false, NO_UMBRAL_ORIENTADO), "não larga item no Umbral");
+		helper.assertTrue(EventosDimensao.impedeLargar(net.minecraft.world.level.Level.OVERWORLD, true, ENCARNADO_ESTAVEL), "não larga item em sonho");
+		helper.assertTrue(EventosDimensao.impedeLargar(net.minecraft.world.level.Level.OVERWORLD, false, EM_VISITA_ASSISTIDA), "não larga item em visita assistida");
+		helper.assertFalse(EventosDimensao.impedeLargar(net.minecraft.world.level.Level.OVERWORLD, false, ENCARNADO_ESTAVEL), "na Terra, acordado, larga normalmente");
+		helper.succeed();
+	}
 
 	private static void podeSocorrer(GameTestHelper helper) {
 		helper.assertFalse(Estados.podeSocorrer(NO_UMBRAL_PERTURBADO, 70, 0), "perturbado não socorre");

@@ -28,6 +28,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.BlockPos;
 
 import net.mcreator.modespiritismominecraft.espiritismo.populacao.Zonas;
+import net.mcreator.modespiritismominecraft.espiritismo.populacao.SaidaAcompanhada;
 import net.mcreator.modespiritismominecraft.espiritismo.populacao.TipoNpc;
 import net.mcreator.modespiritismominecraft.espiritismo.populacao.RotinaGoal;
 import net.mcreator.modespiritismominecraft.espiritismo.populacao.RegistroPopulacao;
@@ -73,9 +74,28 @@ public final class TestesPopulacao {
 		TESTES.put("pop_jornada_recem_chegado", new Teste(20, TestesPopulacao::jornadaRecemChegado));
 		TESTES.put("pop_missoes_amelie", new Teste(20, TestesPopulacao::missoesAmelie));
 		TESTES.put("pop_rotina_periodos", new Teste(20, TestesPopulacao::rotina));
+		TESTES.put("pop_correcoes_revisao", new Teste(20, TestesPopulacao::correcoesRevisao));
 	}
 
 	private TestesPopulacao() {
+	}
+
+	/** Saída acompanhada (quem oferece), "perdido" só longe de todas as zonas e leitura pela tela da biblioteca. */
+	private static void correcoesRevisao(GameTestHelper helper) {
+		helper.assertTrue(SaidaAcompanhada.oferece(Perfis.get("clarencio")), "Clarêncio oferece saída acompanhada");
+		helper.assertTrue(SaidaAcompanhada.oferece(Perfis.get("davi")), "mensageiro oferece saída acompanhada");
+		helper.assertFalse(SaidaAcompanhada.oferece(Perfis.get("lisias")), "enfermeiro não oferece");
+		ServerLevel l = helper.getLevel();
+		BlockPos local = helper.absolutePos(new BlockPos(1, 1, 1));
+		Perfil clarencio = Perfis.get("clarencio");
+		helper.assertFalse(Povoamento.perdido(l, clarencio, local.east(40), local), "perto do local não está perdido");
+		helper.assertTrue(Povoamento.perdido(l, clarencio, local.east(500), local), "longe de todas as zonas está perdido");
+		Player p = jogador(helper);
+		var obra = net.mcreator.modespiritismominecraft.espiritismo.biblioteca.Catalogo.get("o_livro_dos_espiritos");
+		helper.assertTrue(obra != null && !obra.secoes().isEmpty(), "obra no catálogo");
+		helper.assertTrue(net.mcreator.modespiritismominecraft.espiritismo.biblioteca.BibliotecaApi.registrarLeitura(p, obra.id(), obra.secoes().get(0).id()), "leitura registrada");
+		helper.assertTrue(PopulacaoApi.leu(p, "o_livro_dos_espiritos"), "leitura pela biblioteca conta para a população");
+		helper.succeed();
 	}
 
 	private static Identifier id(String path) {

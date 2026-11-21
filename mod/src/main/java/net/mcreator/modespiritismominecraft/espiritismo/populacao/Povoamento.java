@@ -143,7 +143,7 @@ public final class Povoamento {
 		MoradorEntity m = nomeado(l, perfil.id());
 		if (m != null) {
 			// Perdeu-se longe do seu lugar (ex.: a colônia mudou o ponto da zona): volta quando ninguém está olhando.
-			if (m.blockPosition().distSqr(alvo) > 96 * 96 && l.getNearestPlayer(m, 24) == null) {
+			if (perdido(l, perfil, m.blockPosition(), alvo) && l.getNearestPlayer(m, 24) == null) {
 				BlockPos pos = Zonas.chao(l, alvo, l.getRandom(), 4);
 				if (pos != null) {
 					m.snapTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, m.getYRot(), 0);
@@ -168,6 +168,36 @@ public final class Povoamento {
 		registrar(l, perfil.id(), novo.getUUID()); // registra ANTES de entrar no nível (a checagem de duplicata aceita)
 		l.addFreshEntity(novo);
 		return novo;
+	}
+
+	/** Distância (horizontal) além da qual o personagem é considerado longe de uma zona do perfil. */
+	public static final int RAIO_PERDIDO = 96;
+
+	/**
+	 * O personagem só está "perdido" se estiver longe de TODAS as zonas do seu perfil (local, descanso, rotina e,
+	 * para quem anda, as zonas do tipo). Assim a ida ao descanso ou à rotina não o faz ser puxado de volta.
+	 */
+	public static boolean perdido(ServerLevel l, Perfil perfil, BlockPos pos, BlockPos local) {
+		if (perto(pos, local))
+			return false;
+		List<String> zonas = new ArrayList<>();
+		zonas.add(perfil.descanso());
+		zonas.addAll(perfil.rotina());
+		if (perfil.tipo().atividade == TipoNpc.Atividade.ANDAR)
+			zonas.addAll(perfil.tipo().zonas);
+		for (String z : zonas) {
+			if (z == null || z.isEmpty())
+				continue;
+			BlockPos c = Zonas.posicao(l, z);
+			if (c != null && perto(pos, c))
+				return false;
+		}
+		return true;
+	}
+
+	private static boolean perto(BlockPos a, BlockPos b) {
+		double dx = a.getX() - b.getX(), dz = a.getZ() - b.getZ();
+		return dx * dx + dz * dz <= (double) RAIO_PERDIDO * RAIO_PERDIDO;
 	}
 
 	/**

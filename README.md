@@ -16,7 +16,7 @@ Um mod espiritual e educativo para **Minecraft Java Edition**, inspirado na **Do
 3. Coloque o arquivo na pasta `mods` do Minecraft (`%appdata%\.minecraft\mods` no Windows).
 4. Abra o jogo pelo perfil do NeoForge e **crie um mundo novo** (as estruturas do mod aparecem em terreno ainda não gerado).
 
-> ⚠️ Todas as versões atuais são **pré-lançamentos**: passam nos testes automáticos, mas ainda estão em teste dentro do jogo. Faça backup dos seus mundos.
+> ⚠️ A versão atual é a **v1.0.0-beta**: todas as áreas integradas e revisadas, 66 testes automáticos passando, ainda em validação visual no jogo. As versões são **pré-lançamentos**: passam nos testes automáticos, mas ainda estão em teste dentro do jogo. Faça backup dos seus mundos.
 
 ---
 
@@ -103,7 +103,9 @@ O histórico completo está no **[CHANGELOG](./CHANGELOG.md)**.
 - [x] **Estados espirituais** (perturbação, acolhimento, tratamento) com opções de acessibilidade *(v0.8.0)*
 - [x] **Moradores e personagens** do livro *Nosso Lar* e Amélie Boudet *(v0.7.0)*
 - [x] **Biblioteca espírita** com catálogo, trilhas de aprendizagem, quizzes e Evangelho no Lar *(v0.6.0)*
-- [ ] Validação visual completa e versão 1.0
+- [x] Revisão final integrada *(v1.0.0-beta)*
+- [ ] Validação visual completa no jogo e versão 1.0 estável
+- [ ] Próximas ideias: mundos da escala espírita visitáveis, reuniões mediúnicas, psicografia com textos, família espiritual, minimapa
 
 ---
 

@@ -77,6 +77,8 @@ public final class Perfis {
 						"Aqui o trabalho não é castigo: é oportunidade. As horas de serviço útil são registradas e contam a favor de cada um (Nosso Lar, caps. 21 e 22).")
 				.explica("obra", c -> c.leu("nosso_lar"),
 						"Vejo que você leu o relato de André Luiz. Lembre-se de que é a descrição de uma colônia numa obra mediúnica, não um ensino das obras básicas de Kardec. Estude ambas, sabendo de onde vem cada coisa.")
+				.explica("servico_fora", c -> c.nossoLar() && SaidaAcompanhada.podeReceber(c.player()),
+						"Quando quiser servir fora da colônia, fale comigo agachado: ofereço uma saída acompanhada até o Posto de Socorro do Umbral. Sair sozinho e sem preparo é imprudente; acompanhado, é serviço.")
 				.diz("Peça e receba ajuda sem vergonha. Todos aqui já precisaram dela um dia.",
 						"A prece sincera muda primeiro quem ora; por isso abre caminho para o socorro.",
 						"Volte sempre que tiver dúvidas. Orientar faz parte do meu serviço.")

@@ -72,7 +72,10 @@ public final class TestesColonia {
 	static {
 		TESTES.put("col_layout_pontos", new Teste(20, TestesColonia::layout));
 		TESTES.put("col_essenciais_rapidas_sem_itens", new Teste(200, TestesColonia::essenciais));
-		TESTES.put("col_cidade_flores_sobrevivem", new Teste(3_000_000, TestesColonia::cidadeCompleta));
+		// Teste pesado (constrói a cidade inteira, ~300 mil ticks): só roda com -Despiritismo.testesPesados=true.
+		// A verificação leve do mesmo bug (chegada sem itens soltos) fica em col_essenciais_rapidas_sem_itens.
+		if (Boolean.getBoolean("espiritismo.testesPesados"))
+			TESTES.put("col_cidade_flores_sobrevivem", new Teste(600_000, TestesColonia::cidadeCompleta));
 		TESTES.put("col_protecao_quebra", new Teste(40, TestesColonia::protecaoQuebra));
 		TESTES.put("col_protecao_colocacao", new Teste(40, TestesColonia::protecaoColocacao));
 		TESTES.put("col_protecao_explosao", new Teste(40, TestesColonia::protecaoExplosao));

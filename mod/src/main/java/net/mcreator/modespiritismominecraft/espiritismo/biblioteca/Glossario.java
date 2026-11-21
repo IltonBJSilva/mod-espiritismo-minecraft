@@ -52,7 +52,7 @@ public final class Glossario {
 		t("escala_espirita", "Escala espírita", K, "LE, q. 100 a 113",
 				"Classificação didática dos Espíritos em ordens (imperfeitos, bons, puros) conforme o progresso. Todos podem progredir.");
 		t("pluralidade_mundos", "Pluralidade dos mundos habitados", K, "LE, q. 55; ESE, cap. III",
-				"Ideia de que há muitos mundos habitados, em diferentes graus de adiantamento (\"Há muitas moradas na casa de meu Pai\").");
+				"Ideia de que há muitos mundos habitados, em diferentes graus de adiantamento (\"Há muitas moradas na casa de meu Pai\" — Jo 14:2; ESE, cap. III).");
 		t("mediunidade", "Mediunidade / médium", K, "LM, 2ª parte, cap. XIV, item 159",
 				"Faculdade de sentir a influência dos Espíritos ou servir de intermediário a eles. Não é privilégio nem poder; exige estudo e moral.");
 		t("psicografia", "Psicografia", K, "LM, cap. XV",

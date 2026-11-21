@@ -82,6 +82,8 @@ public final class BibliotecaApi {
 			return false;
 		ProgressoBiblioteca antes = progresso(player);
 		salvar(player, antes.comLeitura(obraId, secaoId));
+		// Leitura pela tela da biblioteca também conta para a jornada do recém-chegado e as missões da Amélie.
+		net.mcreator.modespiritismominecraft.espiritismo.populacao.PopulacaoApi.registrarLeitura(player, obraId);
 		if (antes.totalLidas() == 0)
 			Jornada.conquista(player, "biblioteca_leitor");
 		return true;

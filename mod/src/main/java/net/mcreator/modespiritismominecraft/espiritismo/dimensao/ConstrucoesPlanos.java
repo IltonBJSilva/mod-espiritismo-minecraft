@@ -217,19 +217,32 @@ public final class ConstrucoesPlanos {
 
 	/** Verifica os NPCs fixos do plano (chamado de tempos em tempos com jogador por perto). */
 	public static void verificarNpcs(ServerLevel level, Map<String, Long> pontos, boolean nossoLar) {
-		if (nossoLar && pontos.containsKey("auxilio")) {
+		if (!nossoLar)
+			return; // (Umbral: ver ConstrucoesUmbral.verificarNpcs)
+		// A cidade é erguida aos poucos: nada de atril/NPC flutuando onde a obra ainda não chegou.
+		if (pontos.containsKey("auxilio")) {
 			BlockPos atril = BlockPos.of(pontos.get("auxilio"));
-			if (level.isLoaded(atril) && !level.getBlockState(atril).is(net.minecraft.world.level.block.Blocks.LECTERN))
+			if (level.isLoaded(atril) && chaoFirme(level, atril) && !level.getBlockState(atril).is(net.minecraft.world.level.block.Blocks.LECTERN))
 				level.setBlock(atril, net.minecraft.world.level.block.Blocks.LECTERN.defaultBlockState(), 3);
 		}
-		if (nossoLar) {
-			if (pontos.containsKey("mirante_npc"))
-				colocarSeFaltar(level, "mentor", BlockPos.of(pontos.get("mirante_npc")), 90F);
-			if (pontos.containsKey("chegada"))
-				colocarSeFaltar(level, "socorrista", BlockPos.of(pontos.get("chegada")).north(2).east(2), 180F);
-			if (pontos.containsKey("praca"))
-				colocarSeFaltar(level, "orador", BlockPos.of(pontos.get("praca")).offset(4, 0, 4), 0F);
-		}
-		// (Umbral: ver ConstrucoesUmbral.verificarNpcs)
+		if (pontos.containsKey("mirante_npc"))
+			colocarSeTiverChao(level, "mentor", BlockPos.of(pontos.get("mirante_npc")), 90F);
+		if (pontos.containsKey("chegada"))
+			colocarSeTiverChao(level, "socorrista", BlockPos.of(pontos.get("chegada")).north(2).east(2), 180F);
+		// Na praça, um Espírito protetor orienta quem passa (o "orador" é papel de casa espírita encarnada).
+		if (pontos.containsKey("praca"))
+			colocarSeTiverChao(level, "mentor", BlockPos.of(pontos.get("praca")).offset(4, 0, 4), 0F);
+	}
+
+	/** Há chão firme (já construído) logo abaixo de {@code pos}? */
+	public static boolean chaoFirme(ServerLevel level, BlockPos pos) {
+		BlockPos abaixo = pos.below();
+		return level.isLoaded(abaixo) && level.getBlockState(abaixo).isFaceSturdy(level, abaixo, net.minecraft.core.Direction.UP);
+	}
+
+	private static Entity colocarSeTiverChao(ServerLevel level, String id, BlockPos pos, float yRot) {
+		if (!level.isLoaded(pos) || !chaoFirme(level, pos))
+			return null;
+		return colocarSeFaltar(level, id, pos, yRot);
 	}
 }

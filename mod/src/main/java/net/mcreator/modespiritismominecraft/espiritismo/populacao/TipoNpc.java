@@ -31,7 +31,8 @@ public enum TipoNpc {
 	MENSAGEIRO("Mensageiro", Atividade.ANDAR, false, null, List.of("comunicacao", "praca", "governadoria"), List.of(
 			"Levo recados entre os Ministérios. Comunicação também é serviço!",
 			"Mensagem boa é a que chega na hora certa e com a palavra certa.",
-			"Hoje já cruzei a colônia três vezes. Ainda bem que gosto de caminhar.")),
+			"Hoje já cruzei a colônia três vezes. Ainda bem que gosto de caminhar.",
+			"Precisa servir fora da colônia? Fale comigo agachado: posso acompanhá-lo até o Posto de Socorro do Umbral.")),
 	BIBLIOTECARIO("Biblioteca", Atividade.TRABALHAR, false, "estudo", List.of("biblioteca", "esclarecimento"), List.of(
 			"Os livros estão organizados por assunto. Leia com calma e pergunte quando não entender.",
 			"Estudar sem praticar é como guardar sementes sem nunca plantar.",

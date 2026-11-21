@@ -21,6 +21,7 @@ import net.minecraft.ChatFormatting;
 
 import net.mcreator.modespiritismominecraft.espiritismo.estado.Estados;
 import net.mcreator.modespiritismominecraft.espiritismo.estado.EstadoEspiritual;
+import net.mcreator.modespiritismominecraft.espiritismo.colonia.LayoutColonia;
 import net.mcreator.modespiritismominecraft.espiritismo.colonia.ColoniaApi;
 import net.mcreator.modespiritismominecraft.espiritismo.Moralidade;
 import net.mcreator.modespiritismominecraft.espiritismo.Jornada;
@@ -328,13 +329,21 @@ public final class Planos {
 
 	/** Distância além do limite da colônia (0 = dentro). */
 	public static double alemDoLimite(ServerLevel level, BlockPos pos) {
+		if (!apiSemLimite(level)) {
+			// Limite real: a muralha circular em volta do "centro" da colônia. A zona de transição começa logo após ela.
+			BlockPos centro = ColoniaApi.local(level, "centro");
+			if (centro != null) {
+				if (ColoniaApi.dentroDaMuralha(level, pos))
+					return 0;
+				double d = LayoutColonia.raio(pos.getX() - centro.getX(), pos.getZ() - centro.getZ());
+				return Math.max(1, d - (LayoutColonia.R_MURO - 1.5));
+			}
+		}
 		BlockPos c = centroColonia(level);
 		if (c == null)
 			return 0;
 		double d = Math.sqrt(Math.pow(pos.getX() - c.getX(), 2) + Math.pow(pos.getZ() - c.getZ(), 2));
-		if (apiSemLimite(level))
-			return Math.max(0, d - RAIO_COLONIA_PADRAO);
-		return ColoniaApi.dentroDaMuralha(level, pos) ? 0 : Math.max(1, d - RAIO_COLONIA_PADRAO);
+		return Math.max(0, d - RAIO_COLONIA_PADRAO);
 	}
 
 	/** Risco de desorientação por segundo fora da colônia, sem acompanhamento (pontos de perturbação). Regra pura. */

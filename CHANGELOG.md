@@ -2,6 +2,19 @@
 
 Todas as versões são *pré-lançamentos*: testadas por GameTests automáticos, ainda em fase de testes dentro do jogo.
 
+## v1.0.0-beta — Revisão final integrada
+Primeira versão completa com todas as áreas integradas e revisadas.
+- Personagens de Nosso Lar não ficam mais indo e voltando entre trabalho e casa durante a noite
+- **Saída acompanhada**: Clarêncio e os mensageiros oferecem (fale agachado) uma saída da colônia para serviço, com acompanhamento
+- Ler pela tela da Biblioteca agora conta para a jornada do recém-chegado e para as missões de Amélie
+- A Biblioteca de Nosso Lar ganhou estantes do catálogo
+- A zona de transição começa logo depois da muralha, igual em todas as direções; a regra vale também durante o sonho
+- NPCs fixos só aparecem depois que o prédio está pronto; em Nosso Lar, um mentor no lugar do orador encarnado
+- Atris funcionais (reencarnação, mirante, aeróbus) sem aviso de proteção contraditório; confirmação de cada atril separada
+- "Nada material se leva": não é possível largar itens em Nosso Lar, no Umbral ou em sonho para levá-los a outra vida
+- Referência bíblica completa no glossário (Jo 14:2; ESE, cap. III)
+- Testes mais estáveis: 66 GameTests obrigatórios + 1 teste pesado opcional da cidade inteira
+
 ## v0.9.0 — Nosso Lar: cidade grande e protegida
 - **Bug das flores corrigido na raiz**: a construção removia o terreno de baixo para cima e as plantas perdiam o apoio e viravam itens. Agora a obra limpa de cima para baixo, sem atualizar vizinhos, e só planta depois do chão pronto (teste automático: antes 775 itens soltos, agora zero)
 - **Proteção total de Nosso Lar**: ninguém quebra, coloca, queima, inunda ou explode blocos da colônia; pistões, mobs e pisoteio também bloqueados. Portas, atris, placas, conversar e sentar continuam permitidos. Operador em modo criativo pode fazer manutenção (registrada no log)
