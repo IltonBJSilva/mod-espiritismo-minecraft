@@ -147,6 +147,7 @@ Este projeto é **não oficial** e não possui vínculo com Mojang, Microsoft, n
 
 ## 📚 Links úteis
 
+- 🔎 [Auditoria do estado atual](./docs/AUDITORIA_ESTADO_ATUAL.md) · [Como testar no Minecraft](./docs/COMO_TESTAR_NO_MINECRAFT.md) · [Testes e validação](./docs/TESTES_E_VALIDACAO.md)
 - 📘 [Documentação inicial do mod (PDF)](./Documenta%C3%A7%C3%A3o%20inicial%20Mod%20Espiritismo%20Minecraft.pdf)
 - 🧰 [Notion com materiais de apoio](https://www.notion.so/Links-de-videos-para-auxiliar-na-constru-o-do-mod-162945cea4d180f5a106d6ca438f0244?pvs=21)
 

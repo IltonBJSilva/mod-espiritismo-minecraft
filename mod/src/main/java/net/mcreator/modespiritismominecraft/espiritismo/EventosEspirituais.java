@@ -175,7 +175,11 @@ public final class EventosEspirituais {
 			for (MobEffectInstance efeito : player.getActiveEffects())
 				if (efeito.getEffect().value().getCategory() == MobEffectCategory.HARMFUL)
 					nocivos.add(efeito);
-			nocivos.forEach(efeito -> player.removeEffect(efeito.getEffect()));
+			// Apoio, não cura mágica: alivia o efeito nocivo mais curto (o remédio real é prece e reforma íntima).
+			nocivos.sort(java.util.Comparator.comparingInt(MobEffectInstance::getDuration));
+			if (!nocivos.isEmpty())
+				player.removeEffect(nocivos.get(0).getEffect());
+			player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60, 0, true, false, true));
 
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 1.0F, 1.0F);
 			player.sendSystemMessage(Component.literal(nocivos.isEmpty() ? "Uma sensação de paz percorre seu corpo." : "Os fluidos benéficos trazem alívio. Para afastar de vez as más influências: prece e reforma íntima.")
@@ -441,12 +445,8 @@ public final class EventosEspirituais {
 				aldeao.setCustomName(Component.literal("Irmão amparado"));
 			aldeao.heal(4);
 			// Caridade sem recompensa à vista: a moralidade sobe em silêncio (ESE, cap. XIII).
-			if (pronto(player, "recompensa_faminto", 12000)) {
-				Moralidade.set(player, Moralidade.get(player) + 4);
-				player.setData(Moralidade.CARIDADE_OCULTA, player.getData(Moralidade.CARIDADE_OCULTA) + 1);
-			} else {
-				Moralidade.caridadeOculta(player, 1);
-			}
+			// Prova de caridade: vale mais uma vez por dia de jogo, sempre dentro do teto diário.
+			Moralidade.caridadeOculta(player, pronto(player, "recompensa_faminto", 24000) ? 4 : 1);
 			player.sendSystemMessage(Component.literal("O aldeão sorri, agradecido. “Que Deus lhe pague, irmão.”").withStyle(ChatFormatting.GREEN, ChatFormatting.ITALIC));
 			Jornada.conquista(player, "caridade");
 			if (Jornada.avancar(player, Jornada.CARIDADE))

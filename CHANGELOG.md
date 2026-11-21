@@ -2,6 +2,12 @@
 
 Todas as versões são *pré-lançamentos*: testadas por GameTests automáticos, ainda em fase de testes dentro do jogo.
 
+## v0.5.1 — Correções da auditoria
+- Centro Espírita do tutorial: a construção não quebra mais flores e plantas em volta (limpeza de cima para baixo, sem soltar itens) — mesma causa do bug das flores de Nosso Lar, que será corrigido na próxima versão
+- Aldeão faminto: a recompensa maior vale uma vez por dia de jogo e respeita o teto diário de moralidade
+- Água fluidificada: agora alivia um efeito nocivo e dá uma regeneração breve — apoio, não cura de tudo (o remédio real é prece e reforma íntima)
+- Documentos novos em `docs/`: auditoria do estado atual, testes e validação, e roteiro de como testar no Minecraft
+
 ## v0.5.0 — Tutorial com os trabalhadores do Centro e caridade discreta
 - Tutorial conduzido pelo Dirigente, Passista e Evangelizadora do Centro Espírita
 - Allan Kardec, Chico Xavier e Divaldo Franco viram encontros especiais nos seus locais, com presentes e conquistas

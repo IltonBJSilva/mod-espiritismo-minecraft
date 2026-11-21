@@ -47,7 +47,8 @@ import net.mcreator.modespiritismominecraft.init.ModEspiritismoMinecraftModBlock
 public final class CentroEspirita {
 	public static final int LARGURA = 13; // x
 	public static final int PROFUNDIDADE = 11; // z
-	private static final int FLAGS = Block.UPDATE_CLIENTS;
+	// Sem atualizar vizinhos nem soltar itens: limpar o volume não pode quebrar plantas em cascata (bug das flores).
+	private static final int FLAGS = Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE | Block.UPDATE_SUPPRESS_DROPS;
 
 	private CentroEspirita() {
 	}
@@ -117,7 +118,7 @@ public final class CentroEspirita {
 		// 1. Limpa o volume e acerta o terreno em volta
 		for (int x = -2; x <= LARGURA + 1; x++)
 			for (int z = -7; z <= PROFUNDIDADE + 1; z++) {
-				for (int y = 1; y <= 12; y++)
+				for (int y = 12; y >= 1; y--) // de cima para baixo: o suporte some por último
 					set(level, o.offset(x, y, z), Blocks.AIR.defaultBlockState());
 				boolean dentro = x >= 0 && x < LARGURA && z >= 0 && z < PROFUNDIDADE;
 				if (!dentro) {
