@@ -2,6 +2,14 @@
 
 Todas as versões são *pré-lançamentos*: testadas por GameTests automáticos, ainda em fase de testes dentro do jogo.
 
+## v0.9.0 — Nosso Lar: cidade grande e protegida
+- **Bug das flores corrigido na raiz**: a construção removia o terreno de baixo para cima e as plantas perdiam o apoio e viravam itens. Agora a obra limpa de cima para baixo, sem atualizar vizinhos, e só planta depois do chão pronto (teste automático: antes 775 itens soltos, agora zero)
+- **Proteção total de Nosso Lar**: ninguém quebra, coloca, queima, inunda ou explode blocos da colônia; pistões, mobs e pisoteio também bloqueados. Portas, atris, placas, conversar e sentar continuam permitidos. Operador em modo criativo pode fazer manutenção (registrada no log)
+- **Cidade circular** inspirada na descrição do livro: muralha com 4 portões e 12 torres, Governadoria no centro com torre de luz, os 6 Ministérios em setores, Câmaras de Retificação, Hospital, Biblioteca, Escola, Bosque das Águas, Mirante e mais de 40 casas
+- **Construção aos poucos** (sem travar): só a área de chegada é feita na hora; o resto é erguido em segundo plano e retomado se o mundo fechar
+- **Aeróbus** (descrito no livro *Nosso Lar*, cap. 10): 8 estações com destinos clicáveis (`/aerobus`)
+- Terreno nivelado com talude suave — sem o "buraco" com paredes de terra
+
 ## v0.8.0 — Umbral, estados espirituais e resgate com consentimento
 - **Estados espirituais** com regras de transição explícitas (estável, perturbado, recém-desencarnado, em acolhimento, em tratamento, no Umbral, em resgate, pronto para reencarnar...), salvos no jogador e restaurados ao reconectar
 - **Resgate com consentimento**: socorristas se aproximam com calma e oferecem *Aceitar*, *Conversar primeiro*, *Pedir tempo* ou *Recusar* — recusar é respeitado, sem punição; a tecla **H** pede ajuda a qualquer momento

@@ -47,6 +47,7 @@ Ao entrar no mundo você recebe uma **Bússola Espiritual** e uma breve introdu�
 | `/moralidade` | todos | Mostra sua moralidade |
 | `/centro` | todos | Mostra onde fica o Centro Espírita do tutorial |
 | `/biblioteca` | todos | Abre a Biblioteca Espírita |
+| `/aerobus` | todos (em Nosso Lar) | Destinos do aeróbus a partir de uma estação |
 | `/evangelho_no_lar` | todos | Começa o Evangelho no Lar (convida quem está perto) |
 | `/moralidade definir <0-100>` | operador | Define a moralidade (testes) |
 | `/espiritismo jornada <0-5>` | operador | Pula para uma etapa do tutorial |
@@ -75,7 +76,7 @@ Ao entrar no mundo você recebe uma **Bússola Espiritual** e uma breve introdu�
 - **Vilas maiores** e **aldeões famintos** como provas de caridade.
 
 ### 🌅 Plano espiritual
-- **Nosso Lar**: colônia espiritual com os seis Ministérios, Câmaras de Retificação e Mirante da escala dos mundos.
+- **Nosso Lar**: uma **cidade circular e protegida** — muralha com portões, Governadoria com torre de luz, os seis Ministérios, Câmaras de Retificação, Hospital, Biblioteca, Escola, bosque, bairros e **aeróbus** entre as estações. Nada pode ser quebrado ou destruído na colônia.
 - **Umbral**: região de sofrimento com **7 Postos de Socorro**; os socorristas oferecem ajuda e o jogador escolhe aceitar, conversar, pedir tempo ou recusar (livre-arbítrio).
 - **Estados espirituais** e **perturbação** com opções de acessibilidade; quem está perturbado não ataca nem destrói, e quem precisa de cuidado não assume o socorro de outros.
 - **Desencarne, reencarnação** e **emancipação da alma durante o sono**, conforme a moralidade.
@@ -97,7 +98,7 @@ O histórico completo está no **[CHANGELOG](./CHANGELOG.md)**.
 
 ## 🗺️ Roteiro (em desenvolvimento)
 
-- [ ] Nosso Lar como **cidade grande e protegida**: muralhas, Governadoria, ministérios ampliados, bairros, biblioteca, escola e aeróbus
+- [x] Nosso Lar como **cidade grande e protegida**: muralhas, Governadoria, ministérios ampliados, bairros, biblioteca, escola e aeróbus *(v0.9.0)*
 - [x] **Umbral** com vários Postos de Socorro, resgate com consentimento e livre-arbítrio *(v0.8.0)*
 - [x] **Estados espirituais** (perturbação, acolhimento, tratamento) com opções de acessibilidade *(v0.8.0)*
 - [x] **Moradores e personagens** do livro *Nosso Lar* e Amélie Boudet *(v0.7.0)*

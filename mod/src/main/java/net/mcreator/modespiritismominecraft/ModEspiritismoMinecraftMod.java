@@ -62,6 +62,7 @@ public class ModEspiritismoMinecraftMod {
 		net.mcreator.modespiritismominecraft.espiritismo.itens.RegistroItens.registrar(modEventBus);
 		net.mcreator.modespiritismominecraft.espiritismo.dimensao.RegistroDimensao.registrar(modEventBus);
 		net.mcreator.modespiritismominecraft.espiritismo.mundo.RegistroMundo.registrar(modEventBus);
+		net.mcreator.modespiritismominecraft.espiritismo.colonia.RegistroColonia.registrar(modEventBus);
 		// End of user code block mod init
 	}
 
