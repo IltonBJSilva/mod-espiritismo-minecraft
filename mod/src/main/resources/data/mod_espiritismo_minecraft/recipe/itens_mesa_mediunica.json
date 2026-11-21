@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": "minecraft:white_carpet",
+    "P": "#minecraft:planks",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "CCC",
+    "PPP",
+    "S S"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:mesa_mediunica"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:bowl",
+    "minecraft:carrot",
+    "minecraft:potato",
+    "minecraft:beetroot"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:sopa_fraterna"
+  }
+}

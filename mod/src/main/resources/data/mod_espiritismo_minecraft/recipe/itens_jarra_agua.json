@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "G": "minecraft:glass",
+    "W": "minecraft:water_bucket"
+  },
+  "pattern": [
+    "G G",
+    "GWG",
+    "GGG"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:jarra_agua"
+  }
+}

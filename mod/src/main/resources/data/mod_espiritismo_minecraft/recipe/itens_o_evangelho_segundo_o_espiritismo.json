@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:bread",
+    "minecraft:blue_dye"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:o_evangelho_segundo_o_espiritismo"
+  }
+}

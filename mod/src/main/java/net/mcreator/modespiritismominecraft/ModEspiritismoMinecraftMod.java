@@ -58,6 +58,7 @@ public class ModEspiritismoMinecraftMod {
 		// Start of user code block mod init
 		net.mcreator.modespiritismominecraft.espiritismo.Moralidade.ATTACHMENTS.register(modEventBus);
 		net.mcreator.modespiritismominecraft.espiritismo.npc.RegistroNpc.registrar(modEventBus);
+		net.mcreator.modespiritismominecraft.espiritismo.itens.RegistroItens.registrar(modEventBus);
 		// End of user code block mod init
 	}
 

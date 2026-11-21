@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:bread",
+    "minecraft:potato",
+    "minecraft:carrot",
+    "minecraft:apple"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:cesta_basica"
+  }
+}

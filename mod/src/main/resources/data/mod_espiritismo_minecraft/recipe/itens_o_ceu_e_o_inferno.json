@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:black_dye",
+    "minecraft:gold_nugget"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:o_ceu_e_o_inferno"
+  }
+}

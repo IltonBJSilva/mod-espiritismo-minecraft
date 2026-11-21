@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": "#minecraft:wooden_slabs",
+    "B": "minecraft:book",
+    "P": "#minecraft:planks"
+  },
+  "pattern": [
+    "SSS",
+    " B ",
+    " P "
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:tribuna"
+  }
+}

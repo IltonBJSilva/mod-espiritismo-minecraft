@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:feather",
+    "minecraft:paper"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:o_livro_dos_mediuns"
+  }
+}

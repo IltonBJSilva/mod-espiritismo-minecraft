@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mod_espiritismo_minecraft:block/itens_jarra_agua"
+    },
+    "facing=east": {
+      "model": "mod_espiritismo_minecraft:block/itens_jarra_agua",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "mod_espiritismo_minecraft:block/itens_jarra_agua",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mod_espiritismo_minecraft:block/itens_jarra_agua",
+      "y": 270
+    }
+  }
+}

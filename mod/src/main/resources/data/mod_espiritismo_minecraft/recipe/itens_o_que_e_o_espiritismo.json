@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:orange_dye"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:o_que_e_o_espiritismo"
+  }
+}

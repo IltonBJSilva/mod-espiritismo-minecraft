@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:light_blue_dye",
+    "minecraft:paper"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:nosso_lar"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:paper",
+    "minecraft:brown_dye"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:livro_1857"
+  }
+}

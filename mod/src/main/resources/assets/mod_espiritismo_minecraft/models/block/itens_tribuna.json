@@ -1,0 +1,276 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "mod_espiritismo_minecraft:block/itens/madeira_tribuna",
+    "madeira": "mod_espiritismo_minecraft:block/itens/madeira_tribuna",
+    "frente": "mod_espiritismo_minecraft:block/itens/tribuna_frente",
+    "livro": "mod_espiritismo_minecraft:block/itens/livro_aberto"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        0,
+        3
+      ],
+      "to": [
+        14,
+        1,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            12,
+            1
+          ],
+          "texture": "#madeira"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            12,
+            1
+          ],
+          "texture": "#madeira"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            12,
+            1
+          ],
+          "texture": "#madeira"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            12,
+            1
+          ],
+          "texture": "#madeira"
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            13
+          ],
+          "texture": "#madeira"
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            13
+          ],
+          "texture": "#madeira",
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        1,
+        5
+      ],
+      "to": [
+        13,
+        12,
+        13
+      ],
+      "faces": {
+        "south": {
+          "uv": [
+            3,
+            2,
+            13,
+            13
+          ],
+          "texture": "#frente"
+        },
+        "north": {
+          "uv": [
+            3,
+            2,
+            13,
+            13
+          ],
+          "texture": "#madeira"
+        },
+        "east": {
+          "uv": [
+            3,
+            2,
+            11,
+            13
+          ],
+          "texture": "#madeira"
+        },
+        "west": {
+          "uv": [
+            3,
+            2,
+            11,
+            13
+          ],
+          "texture": "#madeira"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        12,
+        3
+      ],
+      "to": [
+        15,
+        14,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            0,
+            15,
+            2
+          ],
+          "texture": "#madeira"
+        },
+        "south": {
+          "uv": [
+            1,
+            0,
+            15,
+            2
+          ],
+          "texture": "#madeira"
+        },
+        "east": {
+          "uv": [
+            3,
+            0,
+            16,
+            2
+          ],
+          "texture": "#madeira"
+        },
+        "west": {
+          "uv": [
+            3,
+            0,
+            16,
+            2
+          ],
+          "texture": "#madeira"
+        },
+        "up": {
+          "uv": [
+            1,
+            3,
+            15,
+            16
+          ],
+          "texture": "#madeira"
+        },
+        "down": {
+          "uv": [
+            1,
+            3,
+            15,
+            16
+          ],
+          "texture": "#madeira"
+        }
+      },
+      "rotation": {
+        "angle": -22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          13,
+          9
+        ]
+      }
+    },
+    {
+      "from": [
+        3,
+        14,
+        5
+      ],
+      "to": [
+        13,
+        14.3,
+        14
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            12
+          ],
+          "texture": "#livro",
+          "rotation": 180
+        },
+        "north": {
+          "uv": [
+            0,
+            12,
+            16,
+            13
+          ],
+          "texture": "#livro"
+        },
+        "south": {
+          "uv": [
+            0,
+            12,
+            16,
+            13
+          ],
+          "texture": "#livro"
+        },
+        "east": {
+          "uv": [
+            0,
+            12,
+            16,
+            13
+          ],
+          "texture": "#livro"
+        },
+        "west": {
+          "uv": [
+            0,
+            12,
+            16,
+            13
+          ],
+          "texture": "#livro"
+        }
+      },
+      "rotation": {
+        "angle": -22.5,
+        "axis": "x",
+        "origin": [
+          8,
+          13,
+          9
+        ]
+      }
+    }
+  ]
+}

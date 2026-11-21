@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:compass",
+    "minecraft:green_dye"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:a_genese"
+  }
+}

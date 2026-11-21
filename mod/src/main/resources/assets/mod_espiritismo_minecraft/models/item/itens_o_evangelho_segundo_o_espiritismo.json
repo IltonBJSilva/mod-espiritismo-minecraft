@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mod_espiritismo_minecraft:item/itens/o_evangelho_segundo_o_espiritismo"
+  }
+}

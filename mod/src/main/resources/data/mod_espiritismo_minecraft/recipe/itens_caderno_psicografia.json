@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:paper",
+    "minecraft:paper",
+    "minecraft:string",
+    "minecraft:blue_dye"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:caderno_psicografia"
+  }
+}
