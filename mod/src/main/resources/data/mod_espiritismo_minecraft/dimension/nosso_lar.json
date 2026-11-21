@@ -1,0 +1,11 @@
+{
+  "type": "mod_espiritismo_minecraft:nosso_lar",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "mod_espiritismo_minecraft:nosso_lar"
+    },
+    "settings": "mod_espiritismo_minecraft:nosso_lar"
+  }
+}

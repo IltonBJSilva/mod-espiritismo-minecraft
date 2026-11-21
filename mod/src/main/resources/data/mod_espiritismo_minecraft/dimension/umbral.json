@@ -1,0 +1,11 @@
+{
+  "type": "mod_espiritismo_minecraft:umbral",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "mod_espiritismo_minecraft:umbral"
+    },
+    "settings": "mod_espiritismo_minecraft:umbral"
+  }
+}
