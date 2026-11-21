@@ -30,7 +30,8 @@ public final class Atendimentos {
 	/** Recarga do passe por jogador: 10 min. */
 	public static final int RECARGA_PASSE = 12000;
 	public static final int RECARGA_PALESTRA = 6000;
-	public static final int RECARGA_MISSAO = 12000;
+	/** Missão de caridade da Evangelizadora: no máximo uma por dia de jogo. */
+	public static final int RECARGA_MISSAO = 24000;
 
 	private Atendimentos() {
 	}
@@ -76,10 +77,12 @@ public final class Atendimentos {
 				}
 			}
 			case EVANGELIZADORA -> {
-				if (Moralidade.restante(p, "npc_missao_evangelizadora") == 0 && p.getRandom().nextInt(3) == 0) {
+				if (missaoCaridadeDisponivel(p) && p.getRandom().nextInt(3) == 0) {
 					Moralidade.pronto(p, "npc_missao_evangelizadora", RECARGA_MISSAO);
-					Falas.falar(p, nome, "Tenho uma missãozinha para você: alguém por perto está com fome. Leve um pouco de comida para ele, com carinho!");
-					if (Jornada.garantirAldeaoFaminto(p, true) == null)
+					// Só marca um aldeão que JÁ existe por perto (nunca cria aldeões novos); se não houver vila, não há missão.
+					if (Jornada.garantirAldeaoFaminto(p, false) != null)
+						Falas.falar(p, nome, "Tenho uma missãozinha para você: alguém por perto está com fome. Leve um pouco de comida para ele, com carinho!");
+					else
 						Falas.falar(p, nome, "Ah, hoje parece que todos já comeram. Que bom! Fica para a próxima.");
 				} else
 					Falas.falar(p, nome, proxima(p, "evangelizadora", Falas.EVANGELIZADORA));
@@ -92,6 +95,18 @@ public final class Atendimentos {
 				Falas.falar(p, nome, proxima(p, "divaldo", Falas.DIVALDO));
 			}
 		}
+	}
+
+	/**
+	 * A Evangelizadora só propõe a missão do aldeão faminto no Overworld, no máximo uma vez por dia de jogo e quando o
+	 * jogador ainda não tem uma prova de caridade pendente por perto (evita acumular aldeões).
+	 */
+	public static boolean missaoCaridadeDisponivel(Player p) {
+		if (!(p.level() instanceof ServerLevel level) || level != level.getServer().overworld())
+			return false;
+		if (Moralidade.restante(p, "npc_missao_evangelizadora") > 0)
+			return false;
+		return level.getEntitiesOfClass(net.minecraft.world.entity.npc.villager.Villager.class, p.getBoundingBox().inflate(64), v -> Jornada.famintoPara(v, p)).isEmpty();
 	}
 
 	public static void conversar(Player p, EspiritoEntity e) {

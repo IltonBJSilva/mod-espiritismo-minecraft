@@ -1,0 +1,23 @@
+{
+  "parent": "mod_espiritismo_minecraft:jornada/raiz",
+  "display": {
+    "icon": {
+      "id": "minecraft:white_tulip"
+    },
+    "title": {
+      "text": "Recebido em Nosso Lar"
+    },
+    "description": {
+      "text": "Fale com quem recebe os recém-chegados"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "concedido": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

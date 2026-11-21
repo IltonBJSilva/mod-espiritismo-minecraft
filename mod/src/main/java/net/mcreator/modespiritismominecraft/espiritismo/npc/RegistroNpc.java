@@ -64,6 +64,8 @@ public final class RegistroNpc {
 		modBus.addListener(RegistroNpc::atributos);
 		modBus.addListener(RegistroNpc::abaCriativa);
 		modBus.addListener(RegistroNpc::pacotes);
+		// Área "populacao" (moradores de Nosso Lar, Amélie Boudet): registrada junto, sem linha nova no mod init.
+		net.mcreator.modespiritismominecraft.espiritismo.populacao.RegistroPopulacao.registrar(modBus);
 	}
 
 	private static void atributos(EntityAttributeCreationEvent event) {

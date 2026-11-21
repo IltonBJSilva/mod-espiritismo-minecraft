@@ -57,6 +57,7 @@ public final class TestesNpc {
 		TESTES.put("npc_espada_nao_fere_obsessor", new Teste(40, TestesNpc::espadaObsessor));
 		TESTES.put("npc_esclarecer_obsessor_vira_sofredor", new Teste(40, TestesNpc::esclarecer));
 		TESTES.put("npc_prece_gasta_energia", new Teste(40, TestesNpc::prece));
+		TESTES.put("npc_espirito_temporario_expira", new Teste(60, TestesNpc::expira));
 	}
 
 	private TestesNpc() {
@@ -174,5 +175,26 @@ public final class TestesNpc {
 			Prece.AO_ORAR.remove(gancho);
 		}
 		helper.succeed();
+	}
+
+	/** Espírito temporário expira pelo tempo absoluto salvo, mesmo sem referência (ex.: socorrista após chunk descarregar). */
+	private static void expira(GameTestHelper helper) {
+		ServerLevel level = helper.getLevel();
+		EspiritoEntity s = Espiritos.criar(level, EspiritoEntity.Tipo.SOCORRISTA, helper.absoluteVec(new Vec3(0.5, 2, 0.5)), null, -1);
+		helper.assertTrue(s != null, "socorrista criado");
+		helper.assertValueEqual(s.expiraEm(), -1L, "permanente por padrão");
+		s.expirarEm(10);
+		// Simula salvar e carregar: o prazo absoluto sobrevive.
+		net.minecraft.world.level.storage.TagValueOutput out = net.minecraft.world.level.storage.TagValueOutput.createWithoutContext(net.minecraft.util.ProblemReporter.DISCARDING);
+		s.saveWithoutId(out);
+		helper.assertTrue(out.buildResult().getLongOr("espiritismo_expira", -1L) > 0, "prazo salvo no NBT");
+		EspiritoEntity sofredor = Espiritos.criar(level, EspiritoEntity.Tipo.SOFREDOR, helper.absoluteVec(new Vec3(2.5, 2, 0.5)), null, -1);
+		sofredor.iniciarResgate();
+		helper.assertTrue(sofredor.expiraEm() > 0, "sofredor em resgate tem prazo");
+		helper.runAfterDelay(20, () -> {
+			helper.assertFalse(s.isAlive(), "socorrista temporário deveria ter expirado");
+			sofredor.discard();
+			helper.succeed();
+		});
 	}
 }

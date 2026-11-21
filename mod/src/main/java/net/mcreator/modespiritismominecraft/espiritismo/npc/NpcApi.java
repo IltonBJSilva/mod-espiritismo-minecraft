@@ -40,10 +40,12 @@ public final class NpcApi {
 	public static final DeferredHolder<EntityType<?>, EntityType<EspiritoEntity>> ZOMBETEIRO = RegistroNpc.ESPIRITOS.get(Tipo.ZOMBETEIRO);
 	public static final DeferredHolder<EntityType<?>, EntityType<EspiritoEntity>> SOCORRISTA = RegistroNpc.ESPIRITOS.get(Tipo.SOCORRISTA);
 
-	/** Benfeitores (Kardec, Chico, Haroldo), trabalhadores do Centro e Espíritos bons (mentor, socorrista). */
+	/** Benfeitores (Kardec, Chico, Haroldo), trabalhadores do Centro, moradores de Nosso Lar e Espíritos bons (mentor, socorrista). */
 	public static boolean ehBenfeitorOuTrabalhador(Entity e) {
 		if (e instanceof AllanKardecEntity || e instanceof ChicoXavierEntity || e instanceof HaroldoDutraEntity || e instanceof TrabalhadorEntity)
 			return true;
+		if (e instanceof net.mcreator.modespiritismominecraft.espiritismo.populacao.MoradorEntity)
+			return true; // moradores e personagens de Nosso Lar, Amélie Boudet
 		return e instanceof EspiritoEntity esp && (esp.tipo() == Tipo.MENTOR || esp.tipo() == Tipo.SOCORRISTA);
 	}
 

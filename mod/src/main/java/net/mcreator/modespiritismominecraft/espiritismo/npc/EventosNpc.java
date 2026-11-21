@@ -47,13 +47,21 @@ public final class EventosNpc {
 		if (player.level().isClientSide() || !Moralidade.pronto(player, "npc_conversar", 20))
 			return;
 		if (alvo instanceof TrabalhadorEntity t) {
+			// Missão de Amélie Boudet: entregar um livro ao Dirigente de um Centro.
+			if (t.papel() == TrabalhadorEntity.Papel.DIRIGENTE && net.mcreator.modespiritismominecraft.espiritismo.populacao.MissoesAmelie.entregarAoDirigente(player)) {
+				Falas.falar(player, t.papel().nome, "Obrigado! Este livro vai para a biblioteca do Centro, para o estudo de todos.");
+				return;
+			}
 			if (t.papel() == TrabalhadorEntity.Papel.DIVALDO)
 				net.mcreator.modespiritismominecraft.espiritismo.Jornada.conquista(player, "mansao");
 			if (!net.mcreator.modespiritismominecraft.espiritismo.EventosEspirituais.tutorialTrabalhador(player, t))
 				Atendimentos.conversar(player, t);
 		}
-		else if (alvo instanceof EspiritoEntity e)
+		else if (alvo instanceof EspiritoEntity e) {
 			Atendimentos.conversar(player, e);
+			if (e.tipo() == EspiritoEntity.Tipo.MENTOR)
+				net.mcreator.modespiritismominecraft.espiritismo.populacao.JornadaRecemChegado.conversouComMentor(player);
+		}
 	}
 
 	/** Ao ler uma obra (o Livro dos Espíritos e, se existirem, as obras da área "itens"), o mentor pode aparecer. */

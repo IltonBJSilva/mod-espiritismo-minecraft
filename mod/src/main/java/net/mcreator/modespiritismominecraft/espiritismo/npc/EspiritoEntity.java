@@ -69,6 +69,14 @@ public class EspiritoEntity extends PathfinderMob {
 	/** Socorrista chamado para este sofredor (não salvo). */
 	@Nullable
 	private EspiritoEntity socorrista;
+	/**
+	 * Tick absoluto do mundo em que o Espírito temporário some (-1 = nunca). Salvo no NBT: mesmo que o chunk descarregue
+	 * e a referência ao acompanhante/sofredor se perca, ele expira sozinho ao voltar a carregar.
+	 */
+	private long expiraEm = -1;
+
+	/** Duração máxima de um resgate (o sofredor e o socorrista somem até lá, com ou sem referência entre eles). */
+	public static final int DURACAO_MAX_RESGATE = 400;
 
 	public EspiritoEntity(EntityType<? extends EspiritoEntity> type, Level level, Tipo tipo) {
 		super(type, level);
@@ -90,11 +98,23 @@ public class EspiritoEntity extends PathfinderMob {
 	public void acompanhar(@Nullable Player player, int vidaTicks) {
 		this.alvo = player == null ? null : player.getUUID();
 		this.vida = vidaTicks;
+		this.expiraEm = vidaTicks > 0 ? level().getGameTime() + vidaTicks : -1;
 	}
 
 	public void prolongar(int ticks) {
 		if (vida >= 0)
 			vida += ticks;
+		if (expiraEm >= 0)
+			expiraEm += ticks;
+	}
+
+	/** Faz o Espírito expirar daqui a {@code ticks} (tempo absoluto salvo no NBT). */
+	public void expirarEm(int ticks) {
+		this.expiraEm = level().getGameTime() + ticks;
+	}
+
+	public long expiraEm() {
+		return expiraEm;
 	}
 
 	public boolean emResgate() {
@@ -106,6 +126,7 @@ public class EspiritoEntity extends PathfinderMob {
 		if (resgate < 0)
 			resgate = 0;
 		vida = -1;
+		expirarEm(DURACAO_MAX_RESGATE);
 	}
 
 	@Override
@@ -179,6 +200,10 @@ public class EspiritoEntity extends PathfinderMob {
 	}
 
 	private void logica(ServerLevel level) {
+		if (expiraEm >= 0 && level.getGameTime() >= expiraEm) {
+			sumir(level); // temporário expirado (também cobre referências perdidas ao descarregar o chunk)
+			return;
+		}
 		Player p = jogadorAlvo(level);
 		if (alvo != null && (p == null || p.distanceToSqr(this) > 64 * 64)) {
 			discard(); // o jogador foi embora: o Espírito também
@@ -254,6 +279,7 @@ public class EspiritoEntity extends PathfinderMob {
 		if (resgate == 30) {
 			EspiritoEntity s = Espiritos.criar(level, Tipo.SOCORRISTA, position().add(1.5, 0.5, 0), null, -1);
 			if (s != null) {
+				s.expirarEm(DURACAO_MAX_RESGATE);
 				socorrista = s;
 				level.sendParticles(ParticleTypes.END_ROD, s.getX(), s.getY() + 1, s.getZ(), 20, 0.3, 0.6, 0.3, 0.02);
 				level.playSound(null, s.blockPosition(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.NEUTRAL, 1F, 1.3F);
@@ -295,6 +321,7 @@ public class EspiritoEntity extends PathfinderMob {
 		super.addAdditionalSaveData(output);
 		output.putInt("espiritismo_vida", vida);
 		output.putInt("espiritismo_resgate", resgate);
+		output.putLong("espiritismo_expira", expiraEm);
 		if (alvo != null)
 			output.putString("espiritismo_alvo", alvo.toString());
 	}
@@ -304,6 +331,7 @@ public class EspiritoEntity extends PathfinderMob {
 		super.readAdditionalSaveData(input);
 		vida = input.getIntOr("espiritismo_vida", -1);
 		resgate = input.getIntOr("espiritismo_resgate", -1);
+		expiraEm = input.getLongOr("espiritismo_expira", -1L);
 		String a = input.getStringOr("espiritismo_alvo", "");
 		try {
 			alvo = a.isEmpty() ? null : UUID.fromString(a);

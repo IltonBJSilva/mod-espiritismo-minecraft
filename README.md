@@ -58,12 +58,14 @@ Ao entrar no mundo você recebe uma **Bússola Espiritual** e uma breve introdu�
 - **Barra de Moralidade (0–100)**: ações boas (caridade, cuidar dos animais, plantar, estudar) e más (ferir inocentes) mudam o valor, com **teto diário** para evitar "farm".
 - **Caridade discreta**: ajudar não mostra "+moralidade" na hora — as boas ações são reveladas no plano espiritual (*"que a mão esquerda não saiba o que dá a direita"*, ESE cap. XIII).
 - **Energia Espiritual**, **classes** e **habilidades**; **prece** que esclarece Espíritos perturbadores.
-- **14 conquistas** na árvore *Jornada Espiritual*.
+- **29 conquistas** na árvore *Jornada Espiritual*.
 
 ### 👥 Personagens
 - **Benfeitores** em locais especiais e raros: Allan Kardec, Chico Xavier, Haroldo Dutra e Divaldo Franco (homenagens, sem falas inventadas atribuídas a pessoas reais).
 - **Trabalhadores do Centro**: dirigente, médium, orador, passista e evangelizadora.
 - **Espíritos**: mentor, obsessor (esclarecido pela prece, não pela espada), sofredor, zombeteiro e socorrista.
+- **Nosso Lar habitado**: personagens do livro (Clarêncio, Lísias, Laura, Narcisa, Tobias, Veneranda, o Governador...) e dezenas de moradores com rotinas e memória.
+- **Amélie Boudet**, companheira de trabalho de Kardec, com missões sobre a preservação da obra.
 
 ### 🏛️ Mundo
 - **Centros Espíritas** pequenos, médios e grandes espalhados pelo mundo, com materiais conforme o bioma.
@@ -95,7 +97,7 @@ O histórico completo está no **[CHANGELOG](./CHANGELOG.md)**.
 - [ ] Nosso Lar como **cidade grande e protegida**: muralhas, Governadoria, ministérios ampliados, bairros, biblioteca, escola e aeróbus
 - [ ] **Umbral** com vários Postos de Socorro, resgate com consentimento e livre-arbítrio
 - [ ] **Estados espirituais** (perturbação, acolhimento, tratamento) com opções de acessibilidade
-- [ ] **Moradores e personagens** do livro *Nosso Lar* e Amélie Boudet
+- [x] **Moradores e personagens** do livro *Nosso Lar* e Amélie Boudet *(v0.7.0)*
 - [x] **Biblioteca espírita** com catálogo, trilhas de aprendizagem, quizzes e Evangelho no Lar *(v0.6.0)*
 - [ ] Validação visual completa e versão 1.0
 

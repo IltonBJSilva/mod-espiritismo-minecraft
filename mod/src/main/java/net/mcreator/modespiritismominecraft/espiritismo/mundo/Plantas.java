@@ -395,6 +395,8 @@ public final class Plantas {
 		cadeiras(p, 8, 12, 1, 20, N);
 
 		p.npc("allan_kardec", 5, 6, 12, 4);
+		// Amélie Boudet, companheira de trabalho de Kardec, no gabinete de estudos (área "populacao": uma por mundo).
+		p.npc("amelie_boudet", 9, 6, 12, 4);
 	}
 
 	// ================================================================== Casa de Chico Xavier (interior de Minas)

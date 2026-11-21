@@ -2,6 +2,17 @@
 
 Todas as versões são *pré-lançamentos*: testadas por GameTests automáticos, ainda em fase de testes dentro do jogo.
 
+## v0.7.0 — Moradores de Nosso Lar e Amélie Boudet
+- **Personagens do livro *Nosso Lar*** (André Luiz / Chico Xavier), com papéis conferidos na obra: Clarêncio (Ministro do Auxílio), Lísias (enfermeiro visitador), Laura, Narcisa, Tobias, Veneranda, Genésio, Henrique de Luna e o Governador (sem nome, como no livro) — falas identificadas como adaptação do jogo
+- **24 moradores fictícios** de 11 tipos (recém-chegados, pacientes, enfermeiros, instrutores, mensageiros, bibliotecários, jardineiros...) com skins próprias, rotinas (trabalho, convivência e descanso) e memória de cada jogador
+- Diálogos que mudam conforme o estado espiritual, as leituras e as missões do jogador
+- **Jornada do recém-chegado** em 7 etapas; quem ainda está em tratamento não assume trabalho de assistência ("paciente não ajuda paciente")
+- **Amélie Gabrielle Boudet** (1795–1883) na casa de Allan Kardec, com 4 missões sobre a preservação e a continuidade do trabalho, baseadas em fatos históricos
+- Moradores surgem por proximidade e não se acumulam; personagens nomeados existem uma só vez por mundo
+- Espíritos temporários (socorristas, sofredores) agora sempre desaparecem no prazo, mesmo com o chunk descarregado
+- Missão da Evangelizadora limitada a uma vez por dia e sem criar aldeões
+- 11 conquistas novas
+
 ## v0.6.0 — Biblioteca Espírita
 - **Catálogo com 21 obras** (Kardec, André Luiz, Emmanuel e outros) em tela própria: ficha bibliográfica, contexto histórico, sumário navegável, busca, marcadores, notas pessoais e progresso de leitura salvo
 - Cada trecho identificado como **texto da obra, resumo do mod, adaptação ou nota**, com o **status de direitos autorais** de cada obra (Lei 9.610/1998): obras protegidas aparecem só como sinopse e análise originais
