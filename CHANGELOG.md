@@ -1,0 +1,35 @@
+# Changelog — Mod Espiritismo Minecraft
+
+Todas as versões são *pré-lançamentos*: testadas por GameTests automáticos, ainda em fase de testes dentro do jogo.
+
+## v0.5.0 — Tutorial com os trabalhadores do Centro e caridade discreta
+- Tutorial conduzido pelo Dirigente, Passista e Evangelizadora do Centro Espírita
+- Allan Kardec, Chico Xavier e Divaldo Franco viram encontros especiais nos seus locais, com presentes e conquistas
+- Bússola Espiritual e seta de objetivo (GPS) no HUD
+- Caridade discreta: sem "+moralidade" na hora; as boas ações são reveladas ao despertar em Nosso Lar (ESE, cap. XIII)
+- Fumaça bem visível sobre aldeões famintos; doações (sopa fraterna, cesta básica, agasalho) valem mais
+- 14 conquistas na árvore "Jornada Espiritual"
+- Correções: ganhos de moralidade com teto diário, atril de reencarnação que se recoloca, textos doutrinários revisados
+
+## v0.4.0 — Plano espiritual e mundo
+- Dimensões **Nosso Lar** (6 Ministérios, Câmaras de Retificação, Mirante com a escala dos mundos e a escala espírita) e **Umbral** (Posto de Socorro)
+- Destino após a morte conforme a moralidade; resgate do Umbral pelo arrependimento; reencarnação; emancipação da alma durante o sono
+- Centros Espíritas pequeno, médio e grande espalhados pelo mundo, com materiais por bioma
+- Locais especiais raros: casa de Allan Kardec, casa de Chico Xavier, Mansão do Caminho, auditório
+- Vilas grandes em 5 biomas
+
+## v0.3.0 — NPCs, Espíritos, obras e blocos 3D
+- Trabalhadores: dirigente, médium, orador, passista (passe gratuito), evangelizadora, Divaldo Franco (homenagem)
+- Espíritos translúcidos: mentor, obsessor (esclarecido pela prece, não pela espada), sofredor, zombeteiro, socorrista
+- Prece na tecla **B**
+- Livro pequeno no estilo da 1ª edição de 1857, mesa mediúnica, tribuna, jarra d'água com fluidificação pela prece/passe
+- Obras básicas legíveis, O que é o Espiritismo, Revista Espírita e Nosso Lar; itens de caridade
+
+## v0.2.0 — Moralidade, classes e Centro Espírita
+- Barra de Moralidade (0–100) com ações boas e más e efeitos de moralidade alta/baixa
+- Classes Médium, Doutrinador e Trabalhador Espiritual com Energia Espiritual e habilidades (tecla **V**)
+- Centro Espírita perto do spawn e tutorial "Jornada Espiritual"
+- Palestras sobre as leis morais, conquistas, novas texturas e GameTests
+
+## v0.1.0 — Workspace original
+- Primeiro workspace no MCreator: NPCs Allan Kardec, Chico Xavier e Haroldo Dutra, O Livro dos Espíritos, Água Fluidificada

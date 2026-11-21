@@ -19,9 +19,15 @@ Este mod introduz uma nova camada de gameplay ao Minecraft, com:
 
 ## 📦 Status do Projeto
 
-🚧 Em desenvolvimento (versão inicial / MVP sendo estruturada)
-🔨 Primeira classe: **Médium**
-🧱 Estrutura inicial: **Centro Espírita**
+🚧 Em desenvolvimento — versão atual: **v0.5.0** (veja o [CHANGELOG](./CHANGELOG.md) e as [Releases](../../releases))
+
+Já jogável:
+- Barra de Moralidade, Energia Espiritual e as classes **Médium**, **Doutrinador** e **Trabalhador Espiritual**
+- **Centros Espíritas** espalhados pelo mundo, tutorial "Jornada Espiritual" e Bússola Espiritual
+- Trabalhadores do centro (dirigente, médium, orador, passista, evangelizadora) e Espíritos (mentor, obsessor, sofredor, zombeteiro, socorrista)
+- Locais especiais: casa de Allan Kardec, casa de Chico Xavier, Mansão do Caminho
+- Obras básicas legíveis, mesa mediúnica, tribuna, jarra d'água e itens de caridade
+- Plano espiritual: **Nosso Lar** e **Umbral**, destino após a morte conforme a moralidade, reencarnação
 
 ---
 
@@ -33,12 +39,22 @@ O objetivo não é converter, mas **educar e refletir** por meio do universo dos
 
 ## 💻 Tecnologias Usadas
 
-- Minecraft Java Edition (1.xx)
-- [Forge](https://files.minecraftforge.net/) ou [Fabric](https://fabricmc.net/) (definir)
+- Minecraft Java Edition **26.1.2**
+- [NeoForge](https://neoforged.net/) **26.1.2** (Java 25)
 - Minecraft Modding API
 - Blockbench
 - Mcreator
 - Java
+
+---
+
+## 🛠️ Código do mod
+
+O workspace do MCreator fica na pasta [`mod/`](./mod). Código feito à mão em `mod/src/main/java/net/mcreator/modespiritismominecraft/espiritismo/`.
+
+- Compilar: `./gradlew build`
+- Testes automáticos (GameTests): `./gradlew -I testes/gametest.init.gradle runGameTestServer`
+- Texturas pixel art: `python arte_fonte/gerar_texturas.py` (rodar de novo após um Build no MCreator)
 
 ---
 
