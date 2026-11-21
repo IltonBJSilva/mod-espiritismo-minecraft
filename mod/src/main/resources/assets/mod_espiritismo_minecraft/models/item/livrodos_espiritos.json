@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "parent": "neoforge:item/default",
+  "loader": "neoforge:obj",
+  "model": "mod_espiritismo_minecraft:models/item/livro_espiritos.obj",
+  "textures": {
+    "Materiais": "mod_espiritismo_minecraft:block/92b4efdd-59bf-41cf-a79b-cb11b79cfb32",
+    "particle": "mod_espiritismo_minecraft:item/92b4efdd-59bf-41cf-a79b-cb11b79cfb32"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "neoforge:item/default",
+  "loader": "neoforge:composite",
+  "children": {
+    "part1": {
+      "loader": "neoforge:obj",
+      "render_type": "solid",
+      "model": "mod_espiritismo_minecraft:models/item/livro_espiritos.obj",
+      "emissive_ambient": true,
+      "textures": {
+        "Materiais": "mod_espiritismo_minecraft:block/92b4efdd-59bf-41cf-a79b-cb11b79cfb32",
+        "particle": "mod_espiritismo_minecraft:block/92b4efdd-59bf-41cf-a79b-cb11b79cfb32"
+      }
+    }
+  },
+  "textures": {
+    "particle": "mod_espiritismo_minecraft:block/92b4efdd-59bf-41cf-a79b-cb11b79cfb32"
+  },
+  "render_type": "solid"
+}

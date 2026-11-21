@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "mod_espiritismo_minecraft:block/92b4efdd-59bf-41cf-a79b-cb11b79cfb32"
+  }
+}

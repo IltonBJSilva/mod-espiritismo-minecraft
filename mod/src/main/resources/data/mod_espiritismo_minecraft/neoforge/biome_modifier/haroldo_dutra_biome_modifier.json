@@ -1,0 +1,12 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": {
+    "type": "neoforge:any"
+  },
+  "spawners": {
+    "type": "mod_espiritismo_minecraft:haroldo_dutra",
+    "weight": 20,
+    "minCount": 4,
+    "maxCount": 4
+  }
+}

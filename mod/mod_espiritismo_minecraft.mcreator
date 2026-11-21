@@ -1,0 +1,165 @@
+{
+  "mod_elements": [
+    {
+      "name": "LivrodosEspiritos",
+      "type": "item",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "livrodos_espiritos",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mod_espiritismo_minecraft/items/livrodos_espiritos.json",
+          "src/main/java/net/mcreator/modespiritismominecraft/item/LivrodosEspiritosItem.java",
+          "src/main/resources/assets/mod_espiritismo_minecraft/models/item/livrodos_espiritos.json"
+        ]
+      },
+      "path": "~/Itens"
+    },
+    {
+      "name": "AguaFluidificada",
+      "type": "item",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "agua_fluidificada",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mod_espiritismo_minecraft/models/item/agua_fluidificada.json",
+          "src/main/resources/assets/mod_espiritismo_minecraft/items/agua_fluidificada.json",
+          "src/main/java/net/mcreator/modespiritismominecraft/item/AguaFluidificadaItem.java"
+        ]
+      },
+      "path": "~/Itens"
+    },
+    {
+      "name": "AllanKardec",
+      "type": "livingentity",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "allan_kardec",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/mod_espiritismo_minecraft/neoforge/biome_modifier/allan_kardec_biome_modifier.json",
+          "src/main/java/net/mcreator/modespiritismominecraft/client/renderer/AllanKardecRenderer.java",
+          "src/main/resources/assets/mod_espiritismo_minecraft/items/allan_kardec_spawn_egg.json",
+          "src/main/java/net/mcreator/modespiritismominecraft/entity/AllanKardecEntity.java"
+        ]
+      },
+      "path": "~/NPCS"
+    },
+    {
+      "name": "ChicoXavier",
+      "type": "livingentity",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "chico_xavier",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mod_espiritismo_minecraft/items/chico_xavier_spawn_egg.json",
+          "src/main/resources/data/mod_espiritismo_minecraft/neoforge/biome_modifier/chico_xavier_biome_modifier.json",
+          "src/main/java/net/mcreator/modespiritismominecraft/client/renderer/ChicoXavierRenderer.java",
+          "src/main/java/net/mcreator/modespiritismominecraft/entity/ChicoXavierEntity.java"
+        ]
+      },
+      "path": "~/NPCS"
+    },
+    {
+      "name": "HaroldoDutra",
+      "type": "livingentity",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "haroldo_dutra",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mod_espiritismo_minecraft/items/haroldo_dutra_spawn_egg.json",
+          "src/main/resources/data/mod_espiritismo_minecraft/neoforge/biome_modifier/haroldo_dutra_biome_modifier.json",
+          "src/main/java/net/mcreator/modespiritismominecraft/entity/HaroldoDutraEntity.java",
+          "src/main/java/net/mcreator/modespiritismominecraft/client/renderer/HaroldoDutraRenderer.java"
+        ]
+      },
+      "path": "~/NPCS"
+    },
+    {
+      "name": "Livro",
+      "type": "block",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "livro",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mod_espiritismo_minecraft/items/livro.json",
+          "src/main/resources/assets/mod_espiritismo_minecraft/models/block/livro.json",
+          "src/main/resources/data/mod_espiritismo_minecraft/loot_table/blocks/livro.json",
+          "src/main/resources/assets/mod_espiritismo_minecraft/blockstates/livro.json",
+          "src/main/resources/assets/mod_espiritismo_minecraft/models/item/livro.json",
+          "src/main/java/net/mcreator/modespiritismominecraft/block/LivroBlock.java"
+        ]
+      },
+      "path": "~/Blocos"
+    },
+    {
+      "name": "ModEspiritismo",
+      "type": "tab",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "mod_espiritismo",
+      "metadata": {
+        "files": []
+      }
+    }
+  ],
+  "variable_elements": [],
+  "sound_elements": [],
+  "tag_elements": {},
+  "tab_element_order": {},
+  "language_map": {
+    "en_us": {
+      "item.mod_espiritismo_minecraft.chico_xavier_spawn_egg": "Chico Xavier Spawn Egg",
+      "entity.mod_espiritismo_minecraft.haroldo_dutra": "Haroldo Dutra",
+      "item.mod_espiritismo_minecraft.livrodos_espiritos": "Livrodos Espiritos",
+      "item_group.mod_espiritismo_minecraft.mod_espiritismo": "Mod Espiritismo",
+      "item.mod_espiritismo_minecraft.haroldo_dutra_spawn_egg": "Haroldo Dutra Spawn Egg",
+      "item.mod_espiritismo_minecraft.agua_fluidificada": "Agua Fluidificada",
+      "entity.mod_espiritismo_minecraft.allan_kardec": "Allan Kardec",
+      "entity.mod_espiritismo_minecraft.chico_xavier": "Chico Xavier",
+      "item.mod_espiritismo_minecraft.allan_kardec_spawn_egg": "Allan Kardec Spawn Egg",
+      "item.mod_espiritismo_minecraft.livro": "Livro Dos espiritos"
+    }
+  },
+  "foldersRoot": {
+    "name": "~",
+    "children": [
+      {
+        "name": "Itens",
+        "children": []
+      },
+      {
+        "name": "NPCS",
+        "children": []
+      },
+      {
+        "name": "Blocos",
+        "children": []
+      },
+      {
+        "name": "Classes",
+        "children": []
+      }
+    ]
+  },
+  "workspaceSettings": {
+    "modid": "mod_espiritismo_minecraft",
+    "modName": "Mod Espiritismo Minecraft",
+    "version": "1.0.0",
+    "author": "ilton, MCreator",
+    "websiteURL": "https://mcreator.net",
+    "license": "Not specified",
+    "serverSideOnly": false,
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "mcreatorDependencies": [],
+    "currentGenerator": "neoforge-1.21.4",
+    "modElementsPackage": "net.mcreator.modespiritismominecraft"
+  },
+  "mcreatorVersion": 202500113416
+}
