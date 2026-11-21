@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:compass",
+    "minecraft:book"
+  ],
+  "result": {
+    "id": "mod_espiritismo_minecraft:bussola_espiritual"
+  }
+}
