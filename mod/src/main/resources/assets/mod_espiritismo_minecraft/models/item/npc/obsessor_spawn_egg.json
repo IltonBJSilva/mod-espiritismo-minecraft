@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mod_espiritismo_minecraft:item/npc/obsessor_spawn_egg"
+  }
+}
