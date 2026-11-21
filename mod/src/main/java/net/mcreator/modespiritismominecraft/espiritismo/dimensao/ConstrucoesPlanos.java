@@ -41,7 +41,7 @@ import java.util.HashMap;
  * (onde se acorda), a oeste o Ministério do Auxílio (planejamento reencarnatório), a leste o da Comunicação,
  * ao sul Esclarecimento, Elevação e União Divina; um Mirante a nordeste e um bosque a oeste.
  * <p>
- * Umbral: um Posto de Socorro simples, com luz suave, e o ponto de chegada a ~30 blocos ao sul.
+ * Umbral: movido para {@link ConstrucoesUmbral} (vários Postos de Socorro, construção incremental).
  */
 public final class ConstrucoesPlanos {
 	private static final int FLAGS = Block.UPDATE_CLIENTS;
@@ -121,16 +121,6 @@ public final class ConstrucoesPlanos {
 						set(level, p, folha);
 				}
 		}
-	}
-
-	private static void arvoreSeca(ServerLevel level, BlockPos base, RandomSource r) {
-		BlockState tronco = Blocks.DARK_OAK_LOG.defaultBlockState();
-		int h = 3 + r.nextInt(3);
-		for (int y = 0; y < h; y++)
-			set(level, base.above(y), tronco);
-		Direction d = Direction.Plane.HORIZONTAL.getRandomDirection(r);
-		set(level, base.above(h - 1).relative(d), Blocks.DARK_OAK_FENCE.defaultBlockState());
-		set(level, base.above(h).relative(d.getOpposite()), Blocks.DARK_OAK_FENCE.defaultBlockState());
 	}
 
 	/**
@@ -344,67 +334,6 @@ public final class ConstrucoesPlanos {
 			set(level, c.offset(l[0], topo + 3, l[1]), Blocks.LANTERN.defaultBlockState());
 	}
 
-	// ================================================================ Umbral
-
-	/** Constrói o Posto de Socorro com o centro em {@code o} (y = chão) e o ponto de chegada ao sul. */
-	public static Map<String, Long> construirUmbral(ServerLevel level, BlockPos o) {
-		int g = o.getY();
-		RandomSource r = RandomSource.create(1943L);
-		BlockState lama = Blocks.MUD.defaultBlockState();
-		BlockState barro = Blocks.PACKED_MUD.defaultBlockState();
-		// Chão firme em volta do posto
-		for (int x = -8; x <= 8; x++)
-			for (int z = -8; z <= 8; z++)
-				acertarColuna(level, o.getX() + x, o.getZ() + z, g, Math.abs(x) <= 1 && z > 4 ? Blocks.COARSE_DIRT.defaultBlockState() : barro, barro);
-		// Posto de Socorro 9x9
-		BlockState parede = Blocks.STONE_BRICKS.defaultBlockState();
-		for (int x = -4; x <= 4; x++)
-			for (int z = -4; z <= 4; z++) {
-				set(level, o.offset(x, 0, z), Blocks.SPRUCE_PLANKS.defaultBlockState());
-				boolean borda = Math.abs(x) == 4 || Math.abs(z) == 4;
-				for (int h = 1; h <= 3; h++)
-					set(level, o.offset(x, h, z), !borda ? Blocks.AIR.defaultBlockState()
-							: (h == 2 && (Math.abs(x) == 2 || Math.abs(z) == 2)) ? Blocks.GLASS_PANE.defaultBlockState() : (Math.abs(x) == 4 && Math.abs(z) == 4) ? Blocks.STRIPPED_SPRUCE_LOG.defaultBlockState() : parede);
-				set(level, o.offset(x, 4, z), Blocks.SPRUCE_SLAB.defaultBlockState());
-			}
-		set(level, o.offset(0, 1, 4), Blocks.AIR.defaultBlockState());
-		set(level, o.offset(0, 2, 4), Blocks.AIR.defaultBlockState());
-		for (int[] l : new int[][]{{-2, -2}, {2, -2}, {-2, 2}, {2, 2}})
-			set(level, o.offset(l[0], 3, l[1]), Blocks.LANTERN.defaultBlockState().setValue(LanternBlock.HANGING, true));
-		for (int x : new int[]{-3, -1, 1, 3})
-			cama(level, o.offset(x, 1, -2), Direction.NORTH, Blocks.LIGHT_GRAY_BED);
-		set(level, o.offset(3, 1, 2), Blocks.WATER_CAULDRON.defaultBlockState().setValue(net.minecraft.world.level.block.LayeredCauldronBlock.LEVEL, 3));
-		placa(level, o.offset(0, 3, 5), Direction.SOUTH, ChatFormatting.DARK_BLUE, "Posto de", "Socorro", "Entre e", "descanse");
-		set(level, o.offset(0, 3, 4), parede);
-		// Luz suave visível na névoa: postes de lanterna e um farol no telhado
-		for (int x : new int[]{-2, 2})
-			poste(level, o.offset(x, 1, 6), Blocks.SPRUCE_FENCE.defaultBlockState(), Blocks.LANTERN.defaultBlockState(), 2);
-		poste(level, o.offset(0, 5, 0), Blocks.SPRUCE_FENCE.defaultBlockState(), Blocks.GLOWSTONE.defaultBlockState(), 2);
-
-		Map<String, Long> pontos = new HashMap<>();
-		pontos.put("posto", o.offset(0, 1, 0).asLong());
-		pontos.put("posto_porta", o.offset(0, 1, 6).asLong());
-
-		// Ponto de chegada, ~30 blocos ao sul, sobre um pequeno chão firme
-		int cz = o.getZ() + 30;
-		int cy = Math.max(chao(level, o.getX(), cz), level.getSeaLevel());
-		for (int x = -1; x <= 1; x++)
-			for (int z = -1; z <= 1; z++)
-				acertarColuna(level, o.getX() + x, cz + z, cy, lama, barro);
-		BlockPos chegada = new BlockPos(o.getX(), cy + 1, cz);
-		pontos.put("chegada", chegada.asLong());
-		// Árvores secas pelo caminho
-		for (int i = 0; i < 9; i++) {
-			int x = o.getX() + r.nextInt(31) - 15, z = o.getZ() + 8 + r.nextInt(30);
-			if (Math.abs(x - o.getX()) <= 2)
-				continue;
-			int y = chao(level, x, z);
-			if (level.getFluidState(new BlockPos(x, y, z)).isEmpty())
-				arvoreSeca(level, new BlockPos(x, y + 1, z), r);
-		}
-		return pontos;
-	}
-
 	// ================================================================ NPCs de outra área (lookup por ID)
 
 	/** Tipo de entidade de outro agente por ID; null se não existir. */
@@ -451,18 +380,7 @@ public final class ConstrucoesPlanos {
 				colocarSeFaltar(level, "socorrista", BlockPos.of(pontos.get("chegada")).north(2).east(2), 180F);
 			if (pontos.containsKey("praca"))
 				colocarSeFaltar(level, "orador", BlockPos.of(pontos.get("praca")).offset(4, 0, 4), 0F);
-		} else {
-			if (pontos.containsKey("posto_porta"))
-				colocarSeFaltar(level, "socorrista", BlockPos.of(pontos.get("posto_porta")).east(), 0F);
-			if (pontos.containsKey("chegada")) {
-				BlockPos c = BlockPos.of(pontos.get("chegada"));
-				EntityType<?> sofredor = tipo("espirito_sofredor");
-				if (sofredor != null && level.isPositionEntityTicking(c) && level.getEntities(sofredor, new AABB(c).inflate(24), e -> true).size() < 2)
-					for (int[] d : new int[][]{{7, -4}, {-8, 3}}) {
-						int x = c.getX() + d[0], z = c.getZ() + d[1];
-						colocar(level, sofredor, new BlockPos(x, chao(level, x, z) + 1, z), 0F);
-					}
-			}
 		}
+		// (Umbral: ver ConstrucoesUmbral.verificarNpcs)
 	}
 }

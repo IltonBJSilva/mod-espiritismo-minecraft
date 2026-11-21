@@ -76,6 +76,11 @@ public final class Espiritos {
 	public static boolean esclarecer(Entity espirito, @Nullable Player quem) {
 		if (!(espirito instanceof EspiritoEntity e) || !e.isAlive() || !(e.level() instanceof ServerLevel level))
 			return false;
+		// "Paciente não ajuda paciente": amparar um sofredor exige estar bem.
+		if (quem != null && e.tipo() == EspiritoEntity.Tipo.SOFREDOR && !net.mcreator.modespiritismominecraft.espiritismo.estado.Estados.podeSocorrer(quem)) {
+			quem.sendSystemMessage(net.minecraft.network.chat.Component.literal(net.mcreator.modespiritismominecraft.espiritismo.estado.Estados.MSG_PRECISA_CUIDADO).withStyle(net.minecraft.ChatFormatting.AQUA));
+			return false;
+		}
 		switch (e.tipo()) {
 			case OBSESSOR -> {
 				EspiritoEntity sofredor = criar(level, Tipo.SOFREDOR, e.position(), null, -1);

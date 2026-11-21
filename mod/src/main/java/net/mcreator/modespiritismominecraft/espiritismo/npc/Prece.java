@@ -92,7 +92,11 @@ public final class Prece {
 
 		// Esclarece Espíritos imperfeitos/sofredores próximos.
 		int ajudados = 0;
+		// "Paciente não ajuda paciente": quem precisa de cuidado ora por si; só obsessores (que o perturbam) ainda podem ouvir.
+		boolean podeAjudar = net.mcreator.modespiritismominecraft.espiritismo.estado.Estados.podeSocorrer(player);
 		for (EspiritoEntity e : level.getEntitiesOfClass(EspiritoEntity.class, player.getBoundingBox().inflate(RAIO), e -> e.tipo().esclarecivel())) {
+			if (!podeAjudar && e.tipo() != EspiritoEntity.Tipo.OBSESSOR)
+				continue;
 			boolean aceita = e.tipo() == EspiritoEntity.Tipo.SOFREDOR || player.getRandom().nextInt(100) < chance(player);
 			if (aceita && Espiritos.esclarecer(e, player))
 				ajudados++;

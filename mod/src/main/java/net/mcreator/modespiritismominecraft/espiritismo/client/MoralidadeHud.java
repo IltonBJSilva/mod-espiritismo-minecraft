@@ -67,7 +67,9 @@ public final class MoralidadeHud {
 		// "GPS": seta e distância até o objetivo (tutorial ou Bússola Espiritual)
 		BlockPos alvo = Objetivo.get(player);
 		if (alvo != null)
-			g.text(mc.font, Objetivo.seta(player, alvo) + " " + Objetivo.distancia(player, alvo) + " m", x, y, 0xFF7FE5FF, true);
+			// A seta oscila quando o jogador está perturbado (área umbral).
+			g.text(mc.font, net.mcreator.modespiritismominecraft.espiritismo.dimensao.client.EfeitosPerturbacao.seta(player, alvo) + " "
+					+ net.mcreator.modespiritismominecraft.espiritismo.dimensao.client.EfeitosPerturbacao.distancia(player, alvo) + " m", x, y, 0xFF7FE5FF, true);
 	}
 
 	/** Roxo (perturbada) → cinza (neutra) → azul-claro (elevada). */

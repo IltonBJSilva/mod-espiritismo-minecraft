@@ -277,7 +277,7 @@ public class EspiritoEntity extends PathfinderMob {
 	private void tickResgate(ServerLevel level) {
 		resgate++;
 		if (resgate == 30) {
-			EspiritoEntity s = Espiritos.criar(level, Tipo.SOCORRISTA, position().add(1.5, 0.5, 0), null, -1);
+			EspiritoEntity s = Espiritos.criar(level, Tipo.SOCORRISTA, position().add(1.5, 0.5, 0), null, 200); // vida limitada: nunca fica órfão
 			if (s != null) {
 				s.expirarEm(DURACAO_MAX_RESGATE);
 				socorrista = s;

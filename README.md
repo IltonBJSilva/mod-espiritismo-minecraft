@@ -36,6 +36,8 @@ Ao entrar no mundo você recebe uma **Bússola Espiritual** e uma breve introdu�
 |---|---|
 | **V** | Habilidade da sua classe (Psicografia, Evangelização ou Prece Sincera) |
 | **B** | Prece |
+| **H** | Pedir ajuda (socorristas / mensageiro) |
+| **O** | Intensidade dos efeitos de perturbação (acessibilidade) |
 | Botão direito na Bússola | Aponta o Centro Espírita mais próximo (agachado: locais especiais) |
 
 ### Comandos
@@ -74,7 +76,8 @@ Ao entrar no mundo você recebe uma **Bússola Espiritual** e uma breve introdu�
 
 ### 🌅 Plano espiritual
 - **Nosso Lar**: colônia espiritual com os seis Ministérios, Câmaras de Retificação e Mirante da escala dos mundos.
-- **Umbral**: região de sofrimento com Posto de Socorro; sair dela depende de arrependimento e ajuda.
+- **Umbral**: região de sofrimento com **7 Postos de Socorro**; os socorristas oferecem ajuda e o jogador escolhe aceitar, conversar, pedir tempo ou recusar (livre-arbítrio).
+- **Estados espirituais** e **perturbação** com opções de acessibilidade; quem está perturbado não ataca nem destrói, e quem precisa de cuidado não assume o socorro de outros.
 - **Desencarne, reencarnação** e **emancipação da alma durante o sono**, conforme a moralidade.
 
 ### 📚 Itens e obras
@@ -95,8 +98,8 @@ O histórico completo está no **[CHANGELOG](./CHANGELOG.md)**.
 ## 🗺️ Roteiro (em desenvolvimento)
 
 - [ ] Nosso Lar como **cidade grande e protegida**: muralhas, Governadoria, ministérios ampliados, bairros, biblioteca, escola e aeróbus
-- [ ] **Umbral** com vários Postos de Socorro, resgate com consentimento e livre-arbítrio
-- [ ] **Estados espirituais** (perturbação, acolhimento, tratamento) com opções de acessibilidade
+- [x] **Umbral** com vários Postos de Socorro, resgate com consentimento e livre-arbítrio *(v0.8.0)*
+- [x] **Estados espirituais** (perturbação, acolhimento, tratamento) com opções de acessibilidade *(v0.8.0)*
 - [x] **Moradores e personagens** do livro *Nosso Lar* e Amélie Boudet *(v0.7.0)*
 - [x] **Biblioteca espírita** com catálogo, trilhas de aprendizagem, quizzes e Evangelho no Lar *(v0.6.0)*
 - [ ] Validação visual completa e versão 1.0

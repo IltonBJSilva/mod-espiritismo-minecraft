@@ -192,7 +192,11 @@ public final class TestesDimensao {
 					Moralidade.limparRecarga(p, "dim_prece_umbral");
 					Planos.aoOrar(p);
 				}
-				helper.assertTrue(p.getData(RegistroDimensao.RESGATE_EM) > 0, "5 preces deveriam chamar o socorrista");
+				helper.assertTrue(p.getData(RegistroDimensao.ARREPENDIMENTO) >= 5, "5 preces somam arrependimento");
+				net.mcreator.modespiritismominecraft.espiritismo.dimensao.Resgates.pedirAjuda(p);
+				helper.assertTrue(p.getData(RegistroDimensao.RESGATE_EM) > 0 || net.mcreator.modespiritismominecraft.espiritismo.dimensao.Resgates.fase(p) == 0 && p.level().dimension() == Planos.UMBRAL,
+						"pedir ajuda deveria chamar o socorrista (sem teleportar)");
+				helper.assertValueEqual(p.level().dimension(), Planos.UMBRAL, "socorro não teleporta sem consentimento");
 				Planos.resgatar(p);
 				helper.assertValueEqual(p.level().dimension(), Planos.NOSSO_LAR, "resgate deveria levar a Nosso Lar");
 				helper.assertValueEqual(p.getData(RegistroDimensao.ARREPENDIMENTO), 0, "arrependimento zerado");

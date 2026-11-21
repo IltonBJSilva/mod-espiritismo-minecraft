@@ -242,7 +242,7 @@ public final class TestesPopulacao {
 		helper.assertValueEqual(JornadaRecemChegado.etapa(p), JornadaRecemChegado.MINISTERIOS, "após acolhimento");
 		Memoria.definir(p, JornadaRecemChegado.ETAPA, JornadaRecemChegado.ESCOLHA);
 		// Paciente não cuida de paciente: em tratamento, a enfermagem é recusada.
-		Estados.transicionar(p, EstadoEspiritual.EM_TRATAMENTO, "teste");
+		Estados.forcar(p, EstadoEspiritual.EM_TRATAMENTO, "teste"); // direto (a tabela de transições não permite pular do estado inicial)
 		helper.assertTrue(conversa(p, "narcisa"), "Narcisa responde");
 		helper.assertValueEqual(JornadaRecemChegado.etapa(p), JornadaRecemChegado.ESCOLHA, "trabalho de assistência recusado em tratamento");
 		// O estudo é sempre possível.

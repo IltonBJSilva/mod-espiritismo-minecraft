@@ -146,7 +146,7 @@ public final class TestesMundo {
 
 	private static void centroPequeno(GameTestHelper helper) {
 		ServerLevel level = helper.getLevel();
-		BlockPos origem = helper.absolutePos(BlockPos.ZERO).offset(300, 0, -300);
+		BlockPos origem = helper.absolutePos(BlockPos.ZERO).offset(0, 200, 0); // acima da área de testes: chunks já ativos
 		Modelo m = Modelo.CENTRO_PEQUENO;
 		List<long[]> chunks = forcar(level, origem.getX() - 4, origem.getZ() - 4, origem.getX() + m.largura + 4, origem.getZ() + m.profundidade + 4);
 		BlockPos porta = MundoApi.colocarCentroPequeno(level, origem, true);

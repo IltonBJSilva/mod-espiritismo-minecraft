@@ -265,7 +265,9 @@ public final class TestesEspirituais {
 	private static void centroConstruido(GameTestHelper helper) {
 		ServerLevel level = helper.getLevel();
 		// Longe do grid de testes para não interferir nos outros; os chunks ficam carregados durante o teste.
-		BlockPos origem = helper.absolutePos(BlockPos.ZERO).offset(-300, 0, -300);
+		BlockPos base = helper.absolutePos(BlockPos.ZERO);
+		// Bem acima da área de testes e alinhado ao início do chunk: o Centro (13x11) cabe inteiro no chunk do teste, que já está ativo.
+		BlockPos origem = new BlockPos(base.getX() & ~15, base.getY() + 170, base.getZ() & ~15);
 		java.util.List<long[]> chunks = new java.util.ArrayList<>();
 		for (int cx = (origem.getX() - 4) >> 4; cx <= (origem.getX() + 16) >> 4; cx++)
 			for (int cz = (origem.getZ() - 8) >> 4; cz <= (origem.getZ() + 14) >> 4; cz++) {

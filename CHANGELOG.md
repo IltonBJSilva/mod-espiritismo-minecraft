@@ -2,6 +2,17 @@
 
 Todas as versões são *pré-lançamentos*: testadas por GameTests automáticos, ainda em fase de testes dentro do jogo.
 
+## v0.8.0 — Umbral, estados espirituais e resgate com consentimento
+- **Estados espirituais** com regras de transição explícitas (estável, perturbado, recém-desencarnado, em acolhimento, em tratamento, no Umbral, em resgate, pronto para reencarnar...), salvos no jogador e restaurados ao reconectar
+- **Resgate com consentimento**: socorristas se aproximam com calma e oferecem *Aceitar*, *Conversar primeiro*, *Pedir tempo* ou *Recusar* — recusar é respeitado, sem punição; a tecla **H** pede ajuda a qualquer momento
+- **7 Postos de Socorro** no Umbral, com farol visível de longe, triagem, leitos, ponto de conversa e saída assistida; construídos aos poucos, sem travar o jogo
+- **Perturbação** (névoa leve, sussurros, seta oscilando) com **acessibilidade**: modos completo, reduzido ou desligado (tecla **O** ou `/espiritismo_efeitos`); médium perturbado sente mais estímulos e aprende a se estabilizar
+- Enquanto perturbado, o jogador **não ataca nem quebra blocos** (bloqueado no servidor)
+- **"Paciente não ajuda paciente"**: quem precisa de cuidado não assume o socorro de outros Espíritos
+- Sair do Umbral não depende mais de ajudar outros: vem da prece, da reflexão, do repouso e da conversa no posto; morrer lá não zera o progresso
+- Sair de Nosso Lar sem acompanhamento leva a uma zona de transição onde é possível se perder — sempre com como pedir ajuda
+- Reencarnação sem travamento (busca de local seguro aos poucos)
+
 ## v0.7.0 — Moradores de Nosso Lar e Amélie Boudet
 - **Personagens do livro *Nosso Lar*** (André Luiz / Chico Xavier), com papéis conferidos na obra: Clarêncio (Ministro do Auxílio), Lísias (enfermeiro visitador), Laura, Narcisa, Tobias, Veneranda, Genésio, Henrique de Luna e o Governador (sem nome, como no livro) — falas identificadas como adaptação do jogo
 - **24 moradores fictícios** de 11 tipos (recém-chegados, pacientes, enfermeiros, instrutores, mensageiros, bibliotecários, jardineiros...) com skins próprias, rotinas (trabalho, convivência e descanso) e memória de cada jogador
