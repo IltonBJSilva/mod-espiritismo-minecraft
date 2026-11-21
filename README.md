@@ -44,6 +44,8 @@ Ao entrar no mundo você recebe uma **Bússola Espiritual** e uma breve introdu�
 |---|---|---|
 | `/moralidade` | todos | Mostra sua moralidade |
 | `/centro` | todos | Mostra onde fica o Centro Espírita do tutorial |
+| `/biblioteca` | todos | Abre a Biblioteca Espírita |
+| `/evangelho_no_lar` | todos | Começa o Evangelho no Lar (convida quem está perto) |
 | `/moralidade definir <0-100>` | operador | Define a moralidade (testes) |
 | `/espiritismo jornada <0-5>` | operador | Pula para uma etapa do tutorial |
 | `/espiritismo_plano ir <nosso_lar\|umbral\|terra>` | operador | Viaja entre os planos (testes) |
@@ -78,6 +80,12 @@ Ao entrar no mundo você recebe uma **Bússola Espiritual** e uma breve introdu�
 - Blocos 3D: livro de 1857, mesa mediúnica, tribuna e jarra d'água (fluidificada pela prece ou pelo passe).
 - Itens de caridade: sopa fraterna, cesta básica e agasalho.
 
+### 📖 Biblioteca Espírita
+- **Catálogo de 21 obras** com ficha bibliográfica, sumário, busca, marcadores, notas e progresso de leitura — abra com a **Estante Espírita**, o **Catálogo** ou `/biblioteca`.
+- **Glossário**, **quizzes** e **22 trilhas de aprendizagem** sobre os principais conceitos espíritas.
+- **Evangelho no Lar** cooperativo (`/evangelho_no_lar`).
+- Direitos autorais respeitados: cada obra mostra seu status ([fontes e licenças](./docs/fontes_e_licencas.md)).
+
 O histórico completo está no **[CHANGELOG](./CHANGELOG.md)**.
 
 ---
@@ -88,7 +96,7 @@ O histórico completo está no **[CHANGELOG](./CHANGELOG.md)**.
 - [ ] **Umbral** com vários Postos de Socorro, resgate com consentimento e livre-arbítrio
 - [ ] **Estados espirituais** (perturbação, acolhimento, tratamento) com opções de acessibilidade
 - [ ] **Moradores e personagens** do livro *Nosso Lar* e Amélie Boudet
-- [ ] **Biblioteca espírita** com catálogo, trilhas de aprendizagem, quizzes e Evangelho no Lar
+- [x] **Biblioteca espírita** com catálogo, trilhas de aprendizagem, quizzes e Evangelho no Lar *(v0.6.0)*
 - [ ] Validação visual completa e versão 1.0
 
 ---

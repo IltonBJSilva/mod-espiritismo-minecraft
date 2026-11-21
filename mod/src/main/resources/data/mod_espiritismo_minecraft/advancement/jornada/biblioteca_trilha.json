@@ -1,0 +1,23 @@
+{
+  "parent": "mod_espiritismo_minecraft:jornada/raiz",
+  "display": {
+    "icon": {
+      "id": "mod_espiritismo_minecraft:estante_espirita"
+    },
+    "title": {
+      "text": "Aprender jogando"
+    },
+    "description": {
+      "text": "Estude o primeiro módulo de uma trilha de aprendizagem"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "concedido": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

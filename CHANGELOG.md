@@ -2,6 +2,17 @@
 
 Todas as versões são *pré-lançamentos*: testadas por GameTests automáticos, ainda em fase de testes dentro do jogo.
 
+## v0.6.0 — Biblioteca Espírita
+- **Catálogo com 21 obras** (Kardec, André Luiz, Emmanuel e outros) em tela própria: ficha bibliográfica, contexto histórico, sumário navegável, busca, marcadores, notas pessoais e progresso de leitura salvo
+- Cada trecho identificado como **texto da obra, resumo do mod, adaptação ou nota**, com o **status de direitos autorais** de cada obra (Lei 9.610/1998): obras protegidas aparecem só como sinopse e análise originais
+- **Glossário** com 25 termos e **quizzes** opcionais
+- **22 trilhas de aprendizagem** (perispírito, reencarnação, livre-arbítrio, mediunidade e discernimento, obsessão, prece, caridade, perdão, sono, desencarnação...) sugeridas em momentos do jogo, uma vez por jogador
+- **Conhecimento** registrado separado da moralidade (estudar não "compra" moralidade)
+- **Evangelho no Lar**: atividade opcional e cooperativa em multiplayer, com convite e sem efeitos "mágicos"
+- Estante Espírita (bloco), Catálogo da Biblioteca (item) e comandos `/biblioteca` e `/evangelho_no_lar`
+- Jarra d'água: no máximo 1 água fluidificada a cada 10 minutos por jogador
+- 4 conquistas novas
+
 ## v0.5.1 — Correções da auditoria
 - Centro Espírita do tutorial: a construção não quebra mais flores e plantas em volta (limpeza de cima para baixo, sem soltar itens) — mesma causa do bug das flores de Nosso Lar, que será corrigido na próxima versão
 - Aldeão faminto: a recompensa maior vale uma vez por dia de jogo e respeita o teto diário de moralidade

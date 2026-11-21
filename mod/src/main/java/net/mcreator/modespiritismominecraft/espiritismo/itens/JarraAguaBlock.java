@@ -44,9 +44,24 @@ public class JarraAguaBlock extends BlocoOrientado {
 		return simpleCodec(p -> new JarraAguaBlock(p, forma));
 	}
 
-	/** Enche uma garrafa na jarra em {@code pos}. Retorna o item resultante (público para os testes e o integrador). */
+	/** Recarga por jogador para receber água fluidificada da jarra: 1 a cada 10 minutos (evita estoque ilimitado). */
+	public static final int RECARGA_FLUIDIFICADA = 12000;
+	public static final String CHAVE_RECARGA = "jarra_fluidificada";
+
+	/**
+	 * Enche uma garrafa na jarra em {@code pos}. Retorna o item resultante (público para os testes e o integrador).
+	 * Mesmo com prece/passista por perto, cada jogador recebe no máximo 1 água fluidificada a cada 10 minutos; fora
+	 * disso recebe água comum com a explicação (a água fluidificada é apoio, não estoque nem remédio).
+	 */
 	public static ItemStack encher(ServerLevel level, BlockPos pos, Player player) {
-		if (Fluidificacao.podeFluidificar(level, pos)) {
+		boolean pode = Fluidificacao.podeFluidificar(level, pos);
+		if (pode && player != null && !Moralidade.pronto(player, CHAVE_RECARGA, RECARGA_FLUIDIFICADA)) {
+			long min = Math.max(1, (Moralidade.restante(player, CHAVE_RECARGA) + 1199) / 1200);
+			player.sendSystemMessage(Component.literal("Você já recebeu água fluidificada há pouco. Ela é um apoio, não um estoque nem um remédio: "
+					+ "esta garrafa sai com água comum. Volte em cerca de " + min + " min, se precisar.").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+			return PotionContents.createItemStack(Items.POTION, Potions.WATER);
+		}
+		if (pode) {
 			level.sendParticles(ParticleTypes.END_ROD, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 6, 0.15, 0.2, 0.15, 0.01);
 			if (player != null)
 				player.sendSystemMessage(Component.literal("A água recebeu os fluidos benéficos da prece e do amparo espiritual. É água fluidificada.")

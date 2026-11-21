@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "mod_espiritismo_minecraft:block/biblioteca/estante_topo",
+    "side": "mod_espiritismo_minecraft:block/biblioteca/estante_lado"
+  }
+}

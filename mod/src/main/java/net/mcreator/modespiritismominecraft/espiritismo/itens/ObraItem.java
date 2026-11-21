@@ -14,6 +14,7 @@ import net.mcreator.modespiritismominecraft.espiritismo.Moralidade;
 
 /**
  * Obra legível: abre a tela de livro vanilla (o item já traz WRITTEN_BOOK_CONTENT como componente padrão).
+ * Agachado + usar abre a ficha da obra na Biblioteca Espírita ({@code biblioteca.BibliotecaApi}).
  * Estudar rende um pequeno ganho de rotina (com recarga), como o Livro dos Espíritos do MCreator.
  */
 public class ObraItem extends Item {
@@ -24,6 +25,13 @@ public class ObraItem extends Item {
 	@Override
 	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
+		// Agachado: abre a ficha da obra na Biblioteca (identificação, contexto, direitos, sumário, quiz).
+		if (player.isShiftKeyDown()) {
+			if (player instanceof net.minecraft.server.level.ServerPlayer sp)
+				net.mcreator.modespiritismominecraft.espiritismo.biblioteca.BibliotecaApi.abrir(sp,
+						net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(this).getPath());
+			return InteractionResult.SUCCESS;
+		}
 		player.openItemGui(stack, hand);
 		player.awardStat(Stats.ITEM_USED.get(this));
 		if (!level.isClientSide()) {

@@ -103,6 +103,8 @@ public final class RegistroItens {
 		ITENS.register(modBus);
 		ATTACHMENTS.register(modBus);
 		modBus.addListener(RegistroItens::abaCriativa);
+		// Biblioteca Espírita (mesma área "biblioteca/itens"): catálogo, estante, progresso de leitura, trilhas.
+		net.mcreator.modespiritismominecraft.espiritismo.biblioteca.RegistroBiblioteca.registrar(modBus);
 	}
 
 	private static void abaCriativa(BuildCreativeModeTabContentsEvent event) {

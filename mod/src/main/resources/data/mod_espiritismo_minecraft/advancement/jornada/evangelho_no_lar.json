@@ -1,0 +1,23 @@
+{
+  "parent": "mod_espiritismo_minecraft:jornada/raiz",
+  "display": {
+    "icon": {
+      "id": "mod_espiritismo_minecraft:o_evangelho_segundo_o_espiritismo"
+    },
+    "title": {
+      "text": "Evangelho no Lar"
+    },
+    "description": {
+      "text": "Participe até o fim de um Evangelho no Lar (atividade opcional)"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "concedido": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

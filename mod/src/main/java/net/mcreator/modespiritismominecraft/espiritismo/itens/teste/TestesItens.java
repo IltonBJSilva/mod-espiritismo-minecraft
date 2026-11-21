@@ -153,6 +153,17 @@ public final class TestesItens {
 		ItemStack fluidificada = JarraAguaBlock.encher(level, jarra, p);
 		helper.assertTrue(fluidificada.is(ModEspiritismoMinecraftModItems.AGUA_FLUIDIFICADA.get()), "com prece deveria dar água fluidificada: " + fluidificada);
 
+		// Recarga por jogador: a segunda garrafa logo em seguida sai com água comum (não há estoque ilimitado).
+		ItemStack segunda = JarraAguaBlock.encher(level, jarra, p);
+		PotionContents pc2 = segunda.get(DataComponents.POTION_CONTENTS);
+		helper.assertTrue(segunda.is(Items.POTION) && pc2 != null && pc2.is(Potions.WATER), "2ª garrafa na recarga deveria ser água comum: " + segunda);
+		// Outro jogador não é afetado pela recarga do primeiro.
+		Player outroJogador = helper.makeMockPlayer(GameType.SURVIVAL);
+		helper.assertTrue(JarraAguaBlock.encher(level, jarra, outroJogador).is(ModEspiritismoMinecraftModItems.AGUA_FLUIDIFICADA.get()), "recarga é por jogador");
+		// Passada a recarga, volta a fluidificar.
+		Moralidade.limparRecarga(p, JarraAguaBlock.CHAVE_RECARGA);
+		helper.assertTrue(JarraAguaBlock.encher(level, jarra, p).is(ModEspiritismoMinecraftModItems.AGUA_FLUIDIFICADA.get()), "depois da recarga volta a fluidificar");
+
 		// Prece longe (20 blocos) não vale para esta jarra.
 		BlockPos outra = jarra.offset(0, 0, 20);
 		helper.assertFalse(Fluidificacao.podeFluidificar(level, outra), "prece a 20 blocos não deveria valer");
