@@ -13,17 +13,21 @@ authors="ilton, MCreator"
 # Start of user code block mod configuration
 # End of user code block mod configuration
 
+
+# Start of user code block custom mixins
+# End of user code block custom mixins
+
 [[dependencies.mod_espiritismo_minecraft]]
     modId="neoforge"
     type="required"
-    versionRange="[21.4.123,)"
+    versionRange="[26.1.2.95,)"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.mod_espiritismo_minecraft]]
     modId="minecraft"
     type="required"
-    versionRange="[1.21.4]"
+    versionRange="[26.1.2]"
     ordering="AFTER"
     side="BOTH"
 

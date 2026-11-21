@@ -38,8 +38,8 @@
       "registry_name": "allan_kardec",
       "metadata": {
         "files": [
-          "src/main/resources/data/mod_espiritismo_minecraft/neoforge/biome_modifier/allan_kardec_biome_modifier.json",
           "src/main/java/net/mcreator/modespiritismominecraft/client/renderer/AllanKardecRenderer.java",
+          "src/main/resources/assets/mod_espiritismo_minecraft/models/item/allan_kardec_spawn_egg.json",
           "src/main/resources/assets/mod_espiritismo_minecraft/items/allan_kardec_spawn_egg.json",
           "src/main/java/net/mcreator/modespiritismominecraft/entity/AllanKardecEntity.java"
         ]
@@ -55,8 +55,8 @@
       "metadata": {
         "files": [
           "src/main/resources/assets/mod_espiritismo_minecraft/items/chico_xavier_spawn_egg.json",
-          "src/main/resources/data/mod_espiritismo_minecraft/neoforge/biome_modifier/chico_xavier_biome_modifier.json",
           "src/main/java/net/mcreator/modespiritismominecraft/client/renderer/ChicoXavierRenderer.java",
+          "src/main/resources/assets/mod_espiritismo_minecraft/models/item/chico_xavier_spawn_egg.json",
           "src/main/java/net/mcreator/modespiritismominecraft/entity/ChicoXavierEntity.java"
         ]
       },
@@ -70,8 +70,8 @@
       "registry_name": "haroldo_dutra",
       "metadata": {
         "files": [
+          "src/main/resources/assets/mod_espiritismo_minecraft/models/item/haroldo_dutra_spawn_egg.json",
           "src/main/resources/assets/mod_espiritismo_minecraft/items/haroldo_dutra_spawn_egg.json",
-          "src/main/resources/data/mod_espiritismo_minecraft/neoforge/biome_modifier/haroldo_dutra_biome_modifier.json",
           "src/main/java/net/mcreator/modespiritismominecraft/entity/HaroldoDutraEntity.java",
           "src/main/java/net/mcreator/modespiritismominecraft/client/renderer/HaroldoDutraRenderer.java"
         ]
@@ -113,17 +113,45 @@
   "tab_element_order": {},
   "language_map": {
     "en_us": {
-      "item.mod_espiritismo_minecraft.chico_xavier_spawn_egg": "Chico Xavier Spawn Egg",
-      "entity.mod_espiritismo_minecraft.haroldo_dutra": "Haroldo Dutra",
-      "item.mod_espiritismo_minecraft.livrodos_espiritos": "Livrodos Espiritos",
-      "item_group.mod_espiritismo_minecraft.mod_espiritismo": "Mod Espiritismo",
-      "item.mod_espiritismo_minecraft.haroldo_dutra_spawn_egg": "Haroldo Dutra Spawn Egg",
-      "item.mod_espiritismo_minecraft.agua_fluidificada": "Agua Fluidificada",
+      "item.mod_espiritismo_minecraft.livrodos_espiritos": "The Spirits\u0027 Book",
+      "item.mod_espiritismo_minecraft.agua_fluidificada": "Magnetized Water",
+      "item.mod_espiritismo_minecraft.livro": "The Spirits\u0027 Book (decorative)",
+      "item_group.mod_espiritismo_minecraft.mod_espiritismo": "Spiritism Mod",
       "entity.mod_espiritismo_minecraft.allan_kardec": "Allan Kardec",
       "entity.mod_espiritismo_minecraft.chico_xavier": "Chico Xavier",
+      "entity.mod_espiritismo_minecraft.haroldo_dutra": "Haroldo Dutra",
       "item.mod_espiritismo_minecraft.allan_kardec_spawn_egg": "Allan Kardec Spawn Egg",
-      "item.mod_espiritismo_minecraft.livro": "Livro Dos espiritos"
+      "item.mod_espiritismo_minecraft.chico_xavier_spawn_egg": "Chico Xavier Spawn Egg",
+      "item.mod_espiritismo_minecraft.haroldo_dutra_spawn_egg": "Haroldo Dutra Spawn Egg",
+      "key.mod_espiritismo_minecraft.habilidade": "Use spiritual ability",
+      "key.category.mod_espiritismo_minecraft.espiritismo": "Spiritism"
+    },
+    "pt_br": {
+      "item.mod_espiritismo_minecraft.livrodos_espiritos": "O Livro dos Espíritos",
+      "item.mod_espiritismo_minecraft.agua_fluidificada": "Água Fluidificada",
+      "item.mod_espiritismo_minecraft.livro": "Livro dos Espíritos (decorativo)",
+      "item_group.mod_espiritismo_minecraft.mod_espiritismo": "Mod Espiritismo",
+      "entity.mod_espiritismo_minecraft.allan_kardec": "Allan Kardec",
+      "entity.mod_espiritismo_minecraft.chico_xavier": "Chico Xavier",
+      "entity.mod_espiritismo_minecraft.haroldo_dutra": "Haroldo Dutra",
+      "item.mod_espiritismo_minecraft.allan_kardec_spawn_egg": "Ovo Gerador de Allan Kardec",
+      "item.mod_espiritismo_minecraft.chico_xavier_spawn_egg": "Ovo Gerador de Chico Xavier",
+      "item.mod_espiritismo_minecraft.haroldo_dutra_spawn_egg": "Ovo Gerador de Haroldo Dutra",
+      "key.mod_espiritismo_minecraft.habilidade": "Usar habilidade espiritual",
+      "key.category.mod_espiritismo_minecraft.espiritismo": "Espiritismo"
     }
+  },
+  "metadata": {
+    "files": [
+      "src/main/java/net/mcreator/modespiritismominecraft/init/ModEspiritismoMinecraftModBlocks.java",
+      "src/main/java/net/mcreator/modespiritismominecraft/init/ModEspiritismoMinecraftModItems.java",
+      "src/main/java/net/mcreator/modespiritismominecraft/init/ModEspiritismoMinecraftModEntities.java",
+      "src/main/java/net/mcreator/modespiritismominecraft/init/ModEspiritismoMinecraftModEntityRenderers.java",
+      "src/main/java/net/mcreator/modespiritismominecraft/ModEspiritismoMinecraftMod.java",
+      "src/main/resources/pack.mcmeta",
+      "src/main/resources/META-INF/neoforge.mods.toml",
+      "src/main/java/net/mcreator/modespiritismominecraft/init/ModEspiritismoMinecraftModTabs.java"
+    ]
   },
   "foldersRoot": {
     "name": "~",
@@ -158,8 +186,8 @@
     "dependencies": [],
     "dependants": [],
     "mcreatorDependencies": [],
-    "currentGenerator": "neoforge-1.21.4",
+    "currentGenerator": "neoforge-26.1.2",
     "modElementsPackage": "net.mcreator.modespiritismominecraft"
   },
-  "mcreatorVersion": 202500113416
+  "mcreatorVersion": 202600233518
 }

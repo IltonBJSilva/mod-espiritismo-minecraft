@@ -1,4 +1,3 @@
-
 /*
  *    MCreator note: This file will be REGENERATED on each build.
  */
@@ -17,11 +16,14 @@ import java.util.function.Function;
 
 public class ModEspiritismoMinecraftModBlocks {
 	public static final DeferredRegister.Blocks REGISTRY = DeferredRegister.createBlocks(ModEspiritismoMinecraftMod.MODID);
-	public static final DeferredBlock<Block> LIVRO = register("livro", LivroBlock::new);
+	public static final DeferredBlock<Block> LIVRO;
+	static {
+		LIVRO = register("livro", LivroBlock::new);
+	}
 
 	// Start of user code block custom blocks
 	// End of user code block custom blocks
 	private static <B extends Block> DeferredBlock<B> register(String name, Function<BlockBehaviour.Properties, ? extends B> supplier) {
-		return REGISTRY.registerBlock(name, supplier, BlockBehaviour.Properties.of());
+		return REGISTRY.registerBlock(name, supplier);
 	}
 }

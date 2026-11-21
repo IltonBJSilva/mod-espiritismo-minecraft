@@ -1,4 +1,3 @@
-
 package net.mcreator.modespiritismominecraft.block;
 
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -22,7 +21,7 @@ public class LivroBlock extends Block {
 	}
 
 	@Override
-	public int getLightBlock(BlockState state) {
+	public int getLightDampening(BlockState state) {
 		return 0;
 	}
 

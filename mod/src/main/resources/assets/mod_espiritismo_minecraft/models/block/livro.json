@@ -15,6 +15,5 @@
   },
   "textures": {
     "particle": "mod_espiritismo_minecraft:block/92b4efdd-59bf-41cf-a79b-cb11b79cfb32"
-  },
-  "render_type": "solid"
+  }
 }

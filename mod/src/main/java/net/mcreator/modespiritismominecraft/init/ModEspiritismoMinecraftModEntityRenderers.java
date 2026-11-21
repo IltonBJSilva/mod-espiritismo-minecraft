@@ -1,4 +1,3 @@
-
 /*
  *    MCreator note: This file will be REGENERATED on each build.
  */
@@ -13,7 +12,7 @@ import net.mcreator.modespiritismominecraft.client.renderer.HaroldoDutraRenderer
 import net.mcreator.modespiritismominecraft.client.renderer.ChicoXavierRenderer;
 import net.mcreator.modespiritismominecraft.client.renderer.AllanKardecRenderer;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(Dist.CLIENT)
 public class ModEspiritismoMinecraftModEntityRenderers {
 	@SubscribeEvent
 	public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {

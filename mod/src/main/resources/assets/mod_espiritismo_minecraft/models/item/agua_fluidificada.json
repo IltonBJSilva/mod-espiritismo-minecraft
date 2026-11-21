@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "minecraft:item/experience_bottle"
+    "layer0": "mod_espiritismo_minecraft:item/agua_fluidificada"
   }
 }

@@ -1,11 +1,9 @@
 {
-  "_fv": 77,
+  "_fv": 89,
   "_type": "tab",
   "definition": {
     "name": "Mod Espiritismo",
-    "icon": {
-      "value": "CUSTOM:LivrodosEspiritos"
-    },
+    "icon": "CUSTOM:LivrodosEspiritos",
     "showSearch": true
   }
 }
