@@ -1,0 +1,23 @@
+{
+  "parent": "mod_espiritismo_minecraft:jornada/caminho",
+  "display": {
+    "icon": {
+      "id": "mod_espiritismo_minecraft:sopa_fraterna"
+    },
+    "title": {
+      "text": "A Mansão do Caminho"
+    },
+    "description": {
+      "text": "Visite a Mansão do Caminho e conheça Divaldo Franco"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "concedido": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

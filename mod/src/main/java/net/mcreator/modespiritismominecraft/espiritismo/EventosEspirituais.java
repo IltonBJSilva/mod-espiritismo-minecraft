@@ -178,7 +178,7 @@ public final class EventosEspirituais {
 			nocivos.forEach(efeito -> player.removeEffect(efeito.getEffect()));
 
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 1.0F, 1.0F);
-			player.sendSystemMessage(Component.literal(nocivos.isEmpty() ? "Uma sensação de paz percorre seu corpo." : "Os fluidos benéficos dissipam as influências negativas.")
+			player.sendSystemMessage(Component.literal(nocivos.isEmpty() ? "Uma sensação de paz percorre seu corpo." : "Os fluidos benéficos trazem alívio. Para afastar de vez as más influências: prece e reforma íntima.")
 					.withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC));
 			Moralidade.alterarEnergia(player, 25);
 			if (pronto(player, "agua", 2400))
@@ -201,7 +201,7 @@ public final class EventosEspirituais {
 				Moralidade.ganhoRotina(player, 1, "Estudou a Doutrina");
 			Jornada.conquista(player, "primeira_leitura");
 			if (Jornada.avancar(player, Jornada.LER_LIVRO))
-				falar(player, KARDEC, "Muito bem. Agora procure Chico Xavier, aqui no Centro. Ele tem algo para você.");
+				falar(player, "Dirigente", "Muito bem. Agora procure o Passista, aqui no Centro.");
 		}
 	}
 
@@ -231,8 +231,94 @@ public final class EventosEspirituais {
 
 	private static final String KARDEC = "Allan Kardec", CHICO = "Chico Xavier", HAROLDO = "Haroldo Dutra";
 
+	/**
+	 * Tutorial conduzido pelos trabalhadores do Centro. Devolve true se tratou a conversa
+	 * (aí o atendimento normal do NPC não acontece).
+	 */
+	public static boolean tutorialTrabalhador(Player player, net.mcreator.modespiritismominecraft.espiritismo.npc.TrabalhadorEntity t) {
+		int etapa = Jornada.etapa(player);
+		switch (t.papel()) {
+			case DIRIGENTE -> {
+				if (etapa == Jornada.CONCLUIDA && Moralidade.classe(player) != ClasseEspiritual.NENHUMA)
+					return false;
+				guiaDoTutorial(player, "Dirigente");
+				return true;
+			}
+			case PASSISTA -> {
+				if (etapa != Jornada.FALAR_CHICO)
+					return false;
+				falar(player, "Passista", "Seja bem-vindo. O passe é uma transmissão de fluidos pela prece e pela boa vontade; é sempre gratuito.");
+				net.mcreator.modespiritismominecraft.espiritismo.npc.Atendimentos.passe(player, t);
+				falar(player, "Passista", "Leve também esta água fluidificada. E lembre-se: quem recebe também é chamado a dar.");
+				dar(player, new ItemStack(ModEspiritismoMinecraftModItems.AGUA_FLUIDIFICADA.get()));
+				Jornada.conquista(player, "agua");
+				Jornada.avancar(player, Jornada.FALAR_CHICO);
+				return true;
+			}
+			case EVANGELIZADORA -> {
+				if (etapa != Jornada.CARIDADE)
+					return false;
+				falar(player, "Evangelizadora", "Jesus ensinou a dar de comer a quem tem fome. Há um irmão faminto por perto: leve-lhe pão, maçã, cenoura... e não espere nada em troca.");
+				Jornada.garantirAldeaoFaminto(player, true);
+				return true;
+			}
+			default -> {
+				if (etapa >= Jornada.CONCLUIDA)
+					return false;
+				falar(player, t.getName().getString(), "Seja bem-vindo! Converse com o nosso Dirigente: ele vai orientar seus primeiros passos.");
+				return true;
+			}
+		}
+	}
+
+	/** Passos do tutorial que o guia (o Dirigente, ou Allan Kardec em mundos antigos) conduz. */
+	private static void guiaDoTutorial(Player player, String guia) {
+		int etapa = Jornada.etapa(player);
+		Jornada.conquista(player, "raiz");
+		if (etapa == Jornada.FALAR_KARDEC) {
+			falar(player, guia, "Seja bem-vindo ao Centro, amigo. Tome este livro: nele estão as respostas dos Espíritos às grandes questões da vida, reunidas por Allan Kardec.");
+			falar(player, guia, "Clique com o botão direito para lê-lo.");
+			if (!player.getData(Moralidade.RECEBEU_LIVRO)) {
+				player.setData(Moralidade.RECEBEU_LIVRO, true);
+				dar(player, new ItemStack(ModEspiritismoMinecraftModItems.LIVRODOS_ESPIRITOS.get()));
+			}
+			Jornada.avancar(player, Jornada.FALAR_KARDEC);
+		} else if (etapa == Jornada.LER_LIVRO) {
+			if (!player.getInventory().contains(new ItemStack(ModEspiritismoMinecraftModItems.LIVRODOS_ESPIRITOS.get()))) {
+				falar(player, guia, "Perdeu o livro? Tome outro. O estudo é o primeiro passo.");
+				dar(player, new ItemStack(ModEspiritismoMinecraftModItems.LIVRODOS_ESPIRITOS.get()));
+			} else {
+				falar(player, guia, "Leia O Livro dos Espíritos: clique com o botão direito segurando o livro.");
+			}
+		} else if (etapa == Jornada.FALAR_CHICO) {
+			falar(player, guia, "Agora procure o nosso Passista, aqui no Centro.");
+		} else if (etapa == Jornada.CARIDADE) {
+			falar(player, guia, "Fora da caridade não há salvação. Há um irmão com fome por perto: leve-lhe algo para comer.");
+			Jornada.garantirAldeaoFaminto(player, false);
+		} else if (etapa == Jornada.ESCOLHER_CLASSE && Moralidade.classe(player) != ClasseEspiritual.NENHUMA) {
+			Jornada.avancar(player, Jornada.ESCOLHER_CLASSE);
+		} else if (Moralidade.classe(player) == ClasseEspiritual.NENHUMA && player instanceof ServerPlayer sp) {
+			falar(player, guia, "Você estudou, recebeu e deu. Cada Espírito serve ao bem de um modo. Qual caminho deseja seguir?");
+			PacketDistributor.sendToPlayer(sp, new Pacotes.AbrirEscolhaClasse());
+		}
+	}
+
 	private static void conversarKardec(Player player) {
 		int etapa = Jornada.etapa(player);
+		// Primeiro encontro com o Codificador (casa de Allan Kardec, um local raro do mundo).
+		if (!player.getData(Moralidade.RECARGAS).containsKey("encontrou_kardec")) {
+			player.getData(Moralidade.RECARGAS).put("encontrou_kardec", 1L);
+			falar(player, KARDEC, "Você me encontrou, amigo. Não sou eu quem ensina: os Espíritos ensinaram, e eu apenas organizei, comparei e publiquei o que receberam muitos médiuns.");
+			falar(player, KARDEC, "Leve estas obras. Estude-as com a razão: a fé verdadeira é a que pode encarar a razão face a face.");
+			dar(player, net.mcreator.modespiritismominecraft.espiritismo.itens.Obras.criar("o_livro_dos_mediuns"));
+			dar(player, net.mcreator.modespiritismominecraft.espiritismo.itens.Obras.criar("o_evangelho_segundo_o_espiritismo"));
+			Jornada.conquista(player, "codificador");
+			return;
+		}
+		if (etapa < Jornada.CONCLUIDA || Moralidade.classe(player) == ClasseEspiritual.NENHUMA) {
+			guiaDoTutorial(player, KARDEC);
+			return;
+		}
 		Jornada.conquista(player, "raiz");
 		if (etapa == Jornada.FALAR_KARDEC) {
 			falar(player, KARDEC, "Seja bem-vindo ao Centro, amigo. Tome este livro: nele estão as respostas dos Espíritos às grandes questões da vida.");
@@ -266,6 +352,15 @@ public final class EventosEspirituais {
 
 	private static void conversarChico(Player player) {
 		int etapa = Jornada.etapa(player);
+		if (!player.getData(Moralidade.RECARGAS).containsKey("encontrou_chico")) {
+			player.getData(Moralidade.RECARGAS).put("encontrou_chico", 1L);
+			falar(player, CHICO, "Seja bem-vindo à nossa casa simples, meu irmão. Aqui o trabalho é de todos: a sopa, a prece e o estudo.");
+			falar(player, CHICO, "Leve este livro que os amigos espirituais nos confiaram: ele conta a vida em Nosso Lar, uma colônia espiritual.");
+			dar(player, net.mcreator.modespiritismominecraft.espiritismo.itens.Obras.criar("nosso_lar"));
+			dar(player, new ItemStack(ModEspiritismoMinecraftModItems.AGUA_FLUIDIFICADA.get()));
+			Jornada.conquista(player, "uberaba");
+			return;
+		}
 		if (etapa == Jornada.FALAR_CHICO) {
 			falar(player, CHICO, "Que bom que veio, meu filho. Os amigos espirituais pediram que eu lhe entregasse esta água fluidificada.");
 			falar(player, CHICO, "Beba quando sentir o peso das influências negativas. E lembre-se: quem recebe também é chamado a dar.");
@@ -315,7 +410,8 @@ public final class EventosEspirituais {
 	private static void aoInteragirAldeao(PlayerInteractEvent.EntityInteract event, Villager aldeao) {
 		Player player = event.getEntity();
 		ItemStack stack = event.getItemStack();
-		if (event.getHand() != InteractionHand.MAIN_HAND || !stack.has(DataComponents.FOOD))
+		boolean doacao = net.mcreator.modespiritismominecraft.espiritismo.itens.ItensApi.ehDoacao(stack);
+		if (event.getHand() != InteractionHand.MAIN_HAND || !(stack.has(DataComponents.FOOD) || doacao))
 			return;
 		// Com comida na mão: o aldeão faminto sempre aceita; os demais só se o jogador estiver agachado (para não atrapalhar o comércio).
 		if (!Jornada.famintoPara(aldeao, player) && !player.isShiftKeyDown())
@@ -331,6 +427,8 @@ public final class EventosEspirituais {
 	public static void alimentar(Player player, Villager aldeao, ItemStack comida) {
 		// A recompensa grande é só de quem recebeu a prova (evita "farm" de aldeões famintos de outros jogadores).
 		boolean faminto = Jornada.famintoPara(aldeao, player);
+		// Sopa fraterna, cesta básica e agasalho valem mais (calculado antes de consumir o item).
+		int extra = net.mcreator.modespiritismominecraft.espiritismo.itens.ItensApi.valorDoacao(comida, faminto);
 		if (!player.isCreative())
 			comida.shrink(1);
 		if (player.level() instanceof ServerLevel sl) {
@@ -342,16 +440,30 @@ public final class EventosEspirituais {
 			if (aldeao.hasCustomName() && "Irmão faminto".equals(aldeao.getCustomName().getString()))
 				aldeao.setCustomName(Component.literal("Irmão amparado"));
 			aldeao.heal(4);
-			Moralidade.alterar(player, 4, "Saciou a fome de um irmão");
+			// Caridade sem recompensa à vista: a moralidade sobe em silêncio (ESE, cap. XIII).
+			if (pronto(player, "recompensa_faminto", 12000)) {
+				Moralidade.set(player, Moralidade.get(player) + 4);
+				player.setData(Moralidade.CARIDADE_OCULTA, player.getData(Moralidade.CARIDADE_OCULTA) + 1);
+			} else {
+				Moralidade.caridadeOculta(player, 1);
+			}
 			player.sendSystemMessage(Component.literal("O aldeão sorri, agradecido. “Que Deus lhe pague, irmão.”").withStyle(ChatFormatting.GREEN, ChatFormatting.ITALIC));
 			Jornada.conquista(player, "caridade");
 			if (Jornada.avancar(player, Jornada.CARIDADE))
-				player.sendSystemMessage(Component.literal("Você sente que Allan Kardec gostaria de falar com você.").withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC));
+				player.sendSystemMessage(Component.literal("Volte ao Dirigente do Centro: ele gostaria de falar com você.").withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC));
+			if (extra > 0)
+				Moralidade.caridadeOculta(player, extra / 2);
 		} else {
+			if (extra > 0 && pronto(player, "doacao", 600))
+				Moralidade.caridadeOculta(player, extra / 2);
 			if (Jornada.faminto(aldeao)) // matou a fome de alguém que era prova de outro jogador: o aldeão agradece, mas só vale como rotina
 				Jornada.saciar(aldeao);
 			if (pronto(player, "partilhar", 1200))
-				Moralidade.ganhoRotina(player, 1, "Partilhou o pão");
+				Moralidade.caridadeOculta(player, 1);
+			player.sendOverlayMessage(Component.literal("Ninguém viu. Mas o bem feito em silêncio não se perde.").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+			if (pronto(player, "dica_caridade_discreta", 24000 * 7))
+				player.sendSystemMessage(Component.literal("“Que a vossa mão esquerda não saiba o que dá a vossa mão direita.” A verdadeira caridade é discreta e não espera retorno (O Evangelho segundo o Espiritismo, cap. XIII).")
+						.withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC));
 		}
 	}
 
@@ -360,11 +472,22 @@ public final class EventosEspirituais {
 		if (!(player.level() instanceof ServerLevel sl))
 			return;
 		if (player.tickCount % 40 == 0)
-			for (Villager v : sl.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(24), Jornada::faminto))
-				sl.sendParticles(ParticleTypes.SMOKE, v.getX(), v.getY() + 2.3, v.getZ(), 3, 0.15, 0.1, 0.15, 0.01);
+			for (Villager v : sl.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(48), Jornada::faminto)) {
+				// Coluna de fumaça bem visível, também de longe (como a de uma fogueira).
+				sl.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, true, true, v.getX(), v.getY() + 2.4, v.getZ(), 2, 0.1, 0.05, 0.1, 0.01);
+				sl.sendParticles(ParticleTypes.LARGE_SMOKE, true, true, v.getX(), v.getY() + 2.3, v.getZ(), 6, 0.25, 0.15, 0.25, 0.01);
+			}
 		if (player.tickCount % 200 != 0)
 			return;
 		int etapa = Jornada.etapa(player);
+		Jornada.atualizarObjetivo(player);
+		if (etapa == Jornada.CONCLUIDA) {
+			BlockPos alvo = Objetivo.get(player);
+			if (alvo != null && Objetivo.distancia(player, alvo) < 6) {
+				Objetivo.limpar(player);
+				player.sendOverlayMessage(Component.literal("Você chegou ao destino.").withStyle(ChatFormatting.AQUA));
+			}
+		}
 		if (etapa == Jornada.CARIDADE) {
 			// Garante um aldeão faminto por perto; se não houver nenhum aldeão, um "Irmão faminto" chega (no máximo 1 a cada 5 min).
 			Jornada.garantirAldeaoFaminto(player, true);
@@ -422,9 +545,24 @@ public final class EventosEspirituais {
 		if (!(player.level() instanceof ServerLevel) || player.level().getServer() == null)
 			return;
 		Jornada.migrar(player);
+		// Abertura da história (uma vez por jogador).
+		if (!player.getData(Moralidade.RECARGAS).containsKey("historia_inicio")) {
+			player.getData(Moralidade.RECARGAS).put("historia_inicio", 1L);
+			player.sendSystemMessage(Component.literal("— Uma nova encarnação —").withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD));
+			player.sendSystemMessage(Component.literal("Você é um Espírito que acaba de renascer na Terra. Não se lembra do passado, mas traz consigo o que aprendeu (LE, q. 392–399).")
+					.withStyle(ChatFormatting.WHITE));
+			player.sendSystemMessage(Component.literal("Nesta vida você terá provas, escolhas e oportunidades de fazer o bem. Comece pelo Centro Espírita mais próximo: a Bússola Espiritual mostra o caminho.")
+					.withStyle(ChatFormatting.GRAY));
+		}
+		// Todo jogador recebe uma Bússola Espiritual (uma vez).
+		if (!player.getData(Moralidade.RECARGAS).containsKey("bussola_dada")) {
+			player.getData(Moralidade.RECARGAS).put("bussola_dada", 1L);
+			dar(player, new ItemStack(RegistroBase.BUSSOLA_ESPIRITUAL.get()));
+		}
 		ServerLevel overworld = player.level().getServer().overworld();
 		BlockPos porta = CentroEspirita.garantir(overworld);
 		int etapa = Jornada.etapa(player);
+		Jornada.atualizarObjetivo(player);
 		if (etapa < Jornada.CONCLUIDA) {
 			player.sendSystemMessage(Component.literal("✦ Jornada Espiritual — objetivo: ").withStyle(ChatFormatting.GOLD).append(Component.literal(Jornada.objetivo(etapa)).withStyle(ChatFormatting.YELLOW)));
 			if (etapa == Jornada.FALAR_KARDEC && player.level() == overworld)

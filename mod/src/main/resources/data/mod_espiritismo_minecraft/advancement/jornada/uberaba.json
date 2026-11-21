@@ -1,0 +1,23 @@
+{
+  "parent": "mod_espiritismo_minecraft:jornada/caminho",
+  "display": {
+    "icon": {
+      "id": "mod_espiritismo_minecraft:nosso_lar"
+    },
+    "title": {
+      "text": "O Mineiro de Uberaba"
+    },
+    "description": {
+      "text": "Encontre a casa de Chico Xavier"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "concedido": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

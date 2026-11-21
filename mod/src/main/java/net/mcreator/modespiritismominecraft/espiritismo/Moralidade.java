@@ -82,6 +82,14 @@ public final class Moralidade {
 	public static final Supplier<AttachmentType<Long>> CENTRO = ATTACHMENTS.register("centro",
 			() -> AttachmentType.builder(() -> Long.MIN_VALUE).serialize(Codec.LONG.fieldOf("valor")).build());
 
+	/** Posição (BlockPos.asLong) para onde a seta do HUD aponta (objetivo do tutorial ou da bússola). */
+	public static final Supplier<AttachmentType<Long>> OBJETIVO = ATTACHMENTS.register("objetivo",
+			() -> AttachmentType.builder(() -> Long.MIN_VALUE).serialize(Codec.LONG.fieldOf("valor")).sync(Moralidade::soDono, ByteBufCodecs.VAR_LONG).copyOnDeath().build());
+
+	/** Boas ações discretas que o jogador fez sem ver recompensa (reveladas no plano espiritual). */
+	public static final Supplier<AttachmentType<Integer>> CARIDADE_OCULTA = ATTACHMENTS.register("caridade_oculta",
+			() -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("valor")).copyOnDeath().build());
+
 	/** Máximo de moralidade ganho por dia de jogo com ações de rotina (negociar, plantar...). */
 	public static final int TETO_ROTINA_DIA = 8;
 
@@ -181,6 +189,27 @@ public final class Moralidade {
 			player.sendSystemMessage(Component.literal("Você sente uma presença benfeitora ao seu lado. Sua moralidade está elevada.").withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC));
 		} else if (antes > BAIXA && depois <= BAIXA)
 			player.sendSystemMessage(Component.literal("Um peso sombrio envolve seus pensamentos... Espíritos imperfeitos se aproximam.").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC));
+	}
+
+	/**
+	 * Caridade discreta ("que a vossa mão esquerda não saiba o que dá a vossa mão direita" — ESE, cap. XIII):
+	 * altera a moralidade SEM mostrar o "+N" na hora e conta a boa ação para ser revelada depois.
+	 * Respeita o teto diário de rotina.
+	 */
+	public static void caridadeOculta(Player player, int delta) {
+		if (player.level().isClientSide())
+			return;
+		Map<String, Long> mapa = player.getData(RECARGAS);
+		long dia = player.level().getGameTime() / 24000L;
+		if (mapa.getOrDefault("rotina_dia", -1L) != dia) {
+			mapa.put("rotina_dia", dia);
+			mapa.put("rotina_ganho", 0L);
+		}
+		long ganho = mapa.getOrDefault("rotina_ganho", 0L);
+		int efetivo = (int) Math.max(0, Math.min(delta, TETO_ROTINA_DIA - ganho));
+		mapa.put("rotina_ganho", ganho + efetivo);
+		set(player, get(player) + efetivo);
+		player.setData(CARIDADE_OCULTA, player.getData(CARIDADE_OCULTA) + 1);
 	}
 
 	public static String descricao(int valor) {

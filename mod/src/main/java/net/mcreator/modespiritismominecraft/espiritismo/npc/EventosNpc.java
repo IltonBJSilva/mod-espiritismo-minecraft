@@ -46,8 +46,12 @@ public final class EventosNpc {
 		Player player = event.getEntity();
 		if (player.level().isClientSide() || !Moralidade.pronto(player, "npc_conversar", 20))
 			return;
-		if (alvo instanceof TrabalhadorEntity t)
-			Atendimentos.conversar(player, t);
+		if (alvo instanceof TrabalhadorEntity t) {
+			if (t.papel() == TrabalhadorEntity.Papel.DIVALDO)
+				net.mcreator.modespiritismominecraft.espiritismo.Jornada.conquista(player, "mansao");
+			if (!net.mcreator.modespiritismominecraft.espiritismo.EventosEspirituais.tutorialTrabalhador(player, t))
+				Atendimentos.conversar(player, t);
+		}
 		else if (alvo instanceof EspiritoEntity e)
 			Atendimentos.conversar(player, e);
 	}
@@ -64,6 +68,8 @@ public final class EventosNpc {
 	private static boolean ehObra(ItemStack stack) {
 		if (stack.isEmpty())
 			return false;
+		if (net.mcreator.modespiritismominecraft.espiritismo.itens.ItensApi.ehObra(stack))
+			return true;
 		var id = BuiltInRegistries.ITEM.getKey(stack.getItem());
 		if (!id.getNamespace().equals(RegistroNpc.MODID))
 			return false;

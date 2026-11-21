@@ -78,7 +78,7 @@ public final class TestesEspirituais {
 		TESTES.put("matar_aldeao_reduz_moralidade", new Teste(40, TestesEspirituais::matarAldeao));
 		TESTES.put("kardec_invulneravel", new Teste(40, TestesEspirituais::matarKardec));
 		TESTES.put("teto_diario_rotina", new Teste(40, TestesEspirituais::tetoRotina));
-		TESTES.put("centro_espirita_construido", new Teste(60, TestesEspirituais::centroConstruido));
+		TESTES.put("centro_espirita_construido", new Teste(800, TestesEspirituais::centroConstruido));
 		TESTES.put("caridade_aldeao_faminto", new Teste(40, TestesEspirituais::caridade));
 		TESTES.put("jornada_libera_classe", new Teste(20, TestesEspirituais::jornadaLiberaClasse));
 	}
@@ -129,7 +129,7 @@ public final class TestesEspirituais {
 		helper.assertTrue(raiz.getChild("moralidade") != null, "comando /moralidade não registrado");
 		helper.assertTrue(raiz.getChild("espiritismo") != null, "comando /espiritismo não registrado");
 		helper.assertTrue(raiz.getChild("centro") != null, "comando /centro não registrado");
-		for (String c : new String[]{"raiz", "primeira_leitura", "agua", "caridade", "caminho", "habilidade", "palestra", "elevado"})
+		for (String c : new String[]{"raiz", "primeira_leitura", "agua", "caridade", "caminho", "habilidade", "palestra", "elevado", "codificador", "uberaba", "mansao", "nosso_lar", "resgate", "reencarnacao"})
 			helper.assertTrue(helper.getLevel().getServer().getAdvancements().get(id("jornada/" + c)) != null, "conquista jornada/" + c + " não carregou");
 		helper.assertTrue(NetworkRegistry.getCodec(Pacotes.EscolherClasse.TYPE.id(), ConnectionProtocol.PLAY, PacketFlow.SERVERBOUND) != null, "payload escolher_classe não registrado");
 		helper.assertTrue(NetworkRegistry.getCodec(Pacotes.UsarHabilidade.TYPE.id(), ConnectionProtocol.PLAY, PacketFlow.SERVERBOUND) != null, "payload usar_habilidade não registrado");
@@ -274,27 +274,29 @@ public final class TestesEspirituais {
 			}
 		BlockPos porta = CentroEspirita.construir(level, origem, false);
 		helper.assertTrue(level.getBlockState(porta).is(Blocks.SPRUCE_DOOR), "porta ausente: " + level.getBlockState(porta));
-		helper.assertTrue(level.getBlockState(origem.offset(6, 2, 8)).is(ModEspiritismoMinecraftModBlocks.LIVRO.get()), "livro na mesa ausente");
+		helper.assertTrue(level.getBlockState(origem.offset(6, 2, 8)).is(net.mcreator.modespiritismominecraft.espiritismo.itens.RegistroItens.LIVRO_1857.get()), "livro na mesa ausente");
 		helper.assertTrue(level.getBlockState(origem.offset(6, 9, 5)).is(Blocks.END_ROD), "luz do telhado ausente");
 		AABB caixa = new AABB(origem).inflate(20);
-		helper.assertTrue(level.getEntitiesOfClass(AllanKardecEntity.class, caixa).isEmpty(), "construir(false) não deve colocar NPCs");
-		helper.runAfterDelay(20, () -> {
+		helper.assertTrue(level.getEntities(net.mcreator.modespiritismominecraft.espiritismo.npc.NpcApi.DIRIGENTE.get(), caixa, e -> true).isEmpty(), "construir(false) não deve colocar NPCs");
+		// Espera (tentando a cada tick) até o chunk forçado ficar ativo.
+		helper.succeedWhen(() -> {
 			helper.assertTrue(level.isPositionEntityTicking(origem), "chunk do Centro não ficou ativo");
+			helper.assertTrue(level.isPositionEntityTicking(origem.offset(CentroEspirita.LARGURA - 1, 0, CentroEspirita.PROFUNDIDADE - 1)), "chunk do fundo do Centro não ficou ativo");
+			// Idempotente: chamar várias vezes não pode duplicar ninguém.
 			CentroEspirita.verificarBenfeitores(level, porta);
-			CentroEspirita.verificarBenfeitores(level, porta); // a segunda chamada não pode duplicar
-			var kardecs = level.getEntitiesOfClass(AllanKardecEntity.class, caixa);
-			var chicos = level.getEntitiesOfClass(ChicoXavierEntity.class, caixa);
-			var haroldos = level.getEntitiesOfClass(HaroldoDutraEntity.class, caixa);
-			helper.assertValueEqual(kardecs.size(), 1, "Allan Kardec no Centro");
-			helper.assertValueEqual(chicos.size(), 1, "Chico Xavier no Centro");
-			helper.assertValueEqual(haroldos.size(), 1, "Haroldo Dutra no Centro");
+			CentroEspirita.verificarBenfeitores(level, porta);
+			var kardecs = level.getEntities(net.mcreator.modespiritismominecraft.espiritismo.npc.NpcApi.DIRIGENTE.get(), caixa, e -> true);
+			var chicos = level.getEntities(net.mcreator.modespiritismominecraft.espiritismo.npc.NpcApi.PASSISTA.get(), caixa, e -> true);
+			var haroldos = level.getEntities(net.mcreator.modespiritismominecraft.espiritismo.npc.NpcApi.EVANGELIZADORA.get(), caixa, e -> true);
+			helper.assertValueEqual(kardecs.size(), 1, "Dirigente no Centro");
+			helper.assertValueEqual(chicos.size(), 1, "Passista no Centro");
+			helper.assertValueEqual(haroldos.size(), 1, "Evangelizadora no Centro");
 			Mob k = kardecs.get(0);
 			helper.assertTrue(k.hasHome() && k.isPersistenceRequired(), "Kardec deveria ficar no Centro");
 			kardecs.forEach(Mob::discard);
 			chicos.forEach(Mob::discard);
 			haroldos.forEach(Mob::discard);
 			chunks.forEach(c -> level.setChunkForced((int) c[0], (int) c[1], false));
-			helper.succeed();
 		});
 	}
 

@@ -30,7 +30,7 @@ public final class Ensinamentos {
 			"Estude O Livro dos Espíritos: cada leitura ilumina um pouco mais o caminho.",
 			"Suas ações moldam sua moralidade. Ajude os aldeões, cuide dos animais, plante árvores.",
 			"Tirar vidas inocentes pesa sobre o Espírito. Lembre-se disso ao empunhar a espada.",
-			"Se sentir influências perturbadoras, procure Chico Xavier e a água fluidificada.");
+			"Contra as influências perturbadoras, o remédio é a prece e a reforma íntima. A água fluidificada é um apoio, não um remédio mágico.");
 
 	/**
 	 * Falas de Chico Xavier no jogo. São orientações escritas para o jogo, NÃO citações reais —
@@ -38,7 +38,7 @@ public final class Ensinamentos {
 	 */
 	public static final List<String> CHICO = List.of(
 			"Os amigos espirituais pedem que você não desanime. Siga fazendo o bem.",
-			"Quando a moralidade está baixa, espíritos imperfeitos encontram as portas abertas. A água fluidificada ajuda.",
+			"Quando a moralidade está baixa, Espíritos imperfeitos encontram as portas abertas. Ore, vigie os pensamentos e faça o bem: é assim que as portas se fecham.",
 			"Se escolheu ser médium, use a Psicografia com humildade: nem todo espírito que se comunica é sério.",
 			"Há aldeões precisando de ajuda. Negociar com honestidade também é caridade.",
 			"Descanse quando a energia espiritual acabar. Ela volta mais rápido para quem vive no bem.");

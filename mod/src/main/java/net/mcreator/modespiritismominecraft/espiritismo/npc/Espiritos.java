@@ -87,14 +87,14 @@ public final class Espiritos {
 				if (quem != null) {
 					Falas.falar(quem, Tipo.SOFREDOR.nome, "Por que... por que você ora por mim? Eu só lhe quis mal... Estou tão cansado.", Tipo.SOFREDOR.cor);
 					Falas.narrar(quem, "Tocado pela prece, o obsessor reconhece o próprio sofrimento. Ele também é um irmão que precisa de ajuda.");
-					Moralidade.alterar(quem, 5, "Ajudou um obsessor a se esclarecer");
+					Moralidade.ganhoRotina(quem, 5, "Ajudou um obsessor a se esclarecer");
 				}
 				return true;
 			}
 			case ZOMBETEIRO -> {
 				if (quem != null) {
 					Falas.falar(quem, Tipo.ZOMBETEIRO.nome, "Está bem, está bem! Já entendi... vou procurar algo útil para fazer.", Tipo.ZOMBETEIRO.cor);
-					Moralidade.alterar(quem, 2, "Respondeu à zombaria com uma prece");
+					Moralidade.ganhoRotina(quem, 2, "Respondeu à zombaria com uma prece");
 				}
 				e.sumir(level);
 				return true;
@@ -105,7 +105,7 @@ public final class Espiritos {
 				e.iniciarResgate();
 				if (quem != null) {
 					Falas.falar(quem, Tipo.SOFREDOR.nome, "Que alívio... sinto um calor bom. Obrigado...", Tipo.SOFREDOR.cor);
-					Moralidade.alterar(quem, 3, "Orou por um Espírito sofredor");
+					Moralidade.ganhoRotina(quem, 3, "Orou por um Espírito sofredor");
 				}
 				return true;
 			}

@@ -1,0 +1,23 @@
+{
+  "parent": "mod_espiritismo_minecraft:jornada/caminho",
+  "display": {
+    "icon": {
+      "id": "mod_espiritismo_minecraft:o_livro_dos_espiritos"
+    },
+    "title": {
+      "text": "O Codificador"
+    },
+    "description": {
+      "text": "Encontre a casa de Allan Kardec (use a Bússola Espiritual agachado)"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "concedido": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

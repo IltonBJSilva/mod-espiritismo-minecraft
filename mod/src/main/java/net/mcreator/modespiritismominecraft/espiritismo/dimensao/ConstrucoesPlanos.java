@@ -439,6 +439,11 @@ public final class ConstrucoesPlanos {
 
 	/** Verifica os NPCs fixos do plano (chamado de tempos em tempos com jogador por perto). */
 	public static void verificarNpcs(ServerLevel level, Map<String, Long> pontos, boolean nossoLar) {
+		if (nossoLar && pontos.containsKey("auxilio")) {
+			BlockPos atril = BlockPos.of(pontos.get("auxilio"));
+			if (level.isLoaded(atril) && !level.getBlockState(atril).is(net.minecraft.world.level.block.Blocks.LECTERN))
+				level.setBlock(atril, net.minecraft.world.level.block.Blocks.LECTERN.defaultBlockState(), 3);
+		}
 		if (nossoLar) {
 			if (pontos.containsKey("mirante_npc"))
 				colocarSeFaltar(level, "mentor", BlockPos.of(pontos.get("mirante_npc")), 90F);

@@ -14,6 +14,8 @@ import net.minecraft.client.DeltaTracker;
 
 import net.mcreator.modespiritismominecraft.espiritismo.Moralidade;
 import net.mcreator.modespiritismominecraft.espiritismo.Jornada;
+import net.mcreator.modespiritismominecraft.espiritismo.Objetivo;
+import net.minecraft.core.BlockPos;
 import net.mcreator.modespiritismominecraft.espiritismo.ClasseEspiritual;
 import net.mcreator.modespiritismominecraft.ModEspiritismoMinecraftMod;
 
@@ -58,8 +60,14 @@ public final class MoralidadeHud {
 
 		// Objetivo atual da Jornada Espiritual (tutorial)
 		int etapa = Jornada.etapa(player);
-		if (etapa < Jornada.CONCLUIDA)
+		if (etapa < Jornada.CONCLUIDA) {
 			g.text(mc.font, "✦ " + Jornada.objetivo(etapa), x, y, 0xFFFFF27A, true);
+			y += 10;
+		}
+		// "GPS": seta e distância até o objetivo (tutorial ou Bússola Espiritual)
+		BlockPos alvo = Objetivo.get(player);
+		if (alvo != null)
+			g.text(mc.font, Objetivo.seta(player, alvo) + " " + Objetivo.distancia(player, alvo) + " m", x, y, 0xFF7FE5FF, true);
 	}
 
 	/** Roxo (perturbada) → cinza (neutra) → azul-claro (elevada). */

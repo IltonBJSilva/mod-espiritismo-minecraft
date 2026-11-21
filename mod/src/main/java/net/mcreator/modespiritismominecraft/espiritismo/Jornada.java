@@ -47,11 +47,11 @@ public final class Jornada {
 
 	/** Texto do objetivo atual (mostrado no HUD). */
 	public static final List<String> OBJETIVOS = List.of(
-			"Visite o Centro Espírita e fale com Allan Kardec",
+			"Visite o Centro Espírita e fale com o Dirigente",
 			"Leia O Livro dos Espíritos (botão direito)",
-			"Converse com Chico Xavier no Centro",
+			"Receba o passe com o Passista do Centro",
 			"Dê comida a um aldeão faminto",
-			"Volte a Allan Kardec e escolha seu caminho",
+			"Volte ao Dirigente e escolha seu caminho",
 			"");
 
 	private Jornada() {
@@ -74,6 +74,9 @@ public final class Jornada {
 		if (etapa(player) != de || player.level().isClientSide())
 			return false;
 		definir(player, de + 1);
+		if (de + 1 == CONCLUIDA)
+			Objetivo.limpar(player);
+		atualizarObjetivo(player);
 		if (player.level() instanceof ServerLevel sl)
 			sl.playSound(null, player.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.6F, 1.4F);
 		if (de + 1 < CONCLUIDA)
@@ -83,6 +86,25 @@ public final class Jornada {
 		if (de + 1 == CARIDADE)
 			garantirAldeaoFaminto(player, true);
 		return true;
+	}
+
+	/** Aponta a seta do HUD para onde a etapa atual acontece. */
+	public static void atualizarObjetivo(Player player) {
+		if (!(player.level() instanceof ServerLevel sl))
+			return;
+		int etapa = etapa(player);
+		if (etapa == FALAR_KARDEC || etapa == FALAR_CHICO || etapa == ESCOLHER_CLASSE) {
+			BlockPos porta = centro(sl.getServer().overworld());
+			Objetivo.definir(player, sl == sl.getServer().overworld() ? porta : null);
+		} else if (etapa == CARIDADE) {
+			for (Villager v : sl.getEntitiesOfClass(Villager.class, player.getBoundingBox().inflate(64), v -> famintoPara(v, player))) {
+				Objetivo.definir(player, v.blockPosition());
+				return;
+			}
+		} else if (etapa == LER_LIVRO) {
+			Objetivo.limpar(player);
+		}
+		// CONCLUIDA: a seta passa a ser da Bússola Espiritual (não mexe aqui).
 	}
 
 	/** Jogadores de versões anteriores do mod (que já tinham livro/classe) pulam as etapas já cumpridas. */
@@ -151,7 +173,7 @@ public final class Jornada {
 				return v;
 		Villager alvo = perto.stream().filter(v -> !faminto(v) && v.distanceToSqr(player) < 48 * 48).min(Comparator.comparingDouble(v -> v.distanceToSqr(player))).orElse(null);
 		if (alvo == null) {
-			if (!permitirChegada || !Moralidade.pronto(player, "chegada_faminto", 6000))
+			if (!permitirChegada || level != level.getServer().overworld() || !Moralidade.pronto(player, "chegada_faminto", 6000))
 				return null;
 			alvo = EntityType.VILLAGER.create(level, EntitySpawnReason.EVENT);
 			if (alvo == null)
@@ -167,6 +189,7 @@ public final class Jornada {
 			level.sendParticles(ParticleTypes.POOF, alvo.getX(), alvo.getY() + 1, alvo.getZ(), 10, 0.3, 0.5, 0.3, 0.02);
 		}
 		marcarFaminto(alvo, player);
+		Objetivo.definir(player, alvo.blockPosition());
 		player.sendSystemMessage(Component.literal("Você sente que alguém por perto passa fome. Procure a fumaça acima de um aldeão" + direcao(player, alvo.position()) + ".")
 				.withStyle(ChatFormatting.YELLOW, ChatFormatting.ITALIC));
 		return alvo;

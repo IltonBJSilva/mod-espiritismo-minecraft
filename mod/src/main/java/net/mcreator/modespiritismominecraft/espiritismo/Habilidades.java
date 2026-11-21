@@ -58,8 +58,10 @@ public final class Habilidades {
 			return;
 		}
 		// Só vale perto de Allan Kardec, para não dar para escolher de qualquer lugar.
-		if (player.level().getEntitiesOfClass(AllanKardecEntity.class, player.getBoundingBox().inflate(8)).isEmpty()) {
-			player.sendOverlayMessage(Component.literal("Fique perto de Allan Kardec para escolher seu caminho.").withStyle(ChatFormatting.GRAY));
+		if (player.level().getEntitiesOfClass(AllanKardecEntity.class, player.getBoundingBox().inflate(8)).isEmpty()
+				&& player.level().getEntitiesOfClass(net.mcreator.modespiritismominecraft.espiritismo.npc.TrabalhadorEntity.class, player.getBoundingBox().inflate(8),
+						t -> t.papel() == net.mcreator.modespiritismominecraft.espiritismo.npc.TrabalhadorEntity.Papel.DIRIGENTE).isEmpty()) {
+			player.sendOverlayMessage(Component.literal("Fique perto do Dirigente do Centro para escolher seu caminho.").withStyle(ChatFormatting.GRAY));
 			return;
 		}
 
@@ -67,7 +69,7 @@ public final class Habilidades {
 		Moralidade.alterarEnergia(player, Moralidade.ENERGIA_MAX);
 		Jornada.avancar(player, Jornada.ESCOLHER_CLASSE);
 		Jornada.conquista(player, "caminho");
-		player.sendSystemMessage(Component.literal("<Allan Kardec> ").withStyle(ChatFormatting.GOLD)
+		player.sendSystemMessage(Component.literal("<Dirigente> ").withStyle(ChatFormatting.GOLD)
 				.append(Component.literal("Que assim seja. Siga o caminho do " + escolha.nome + " com humildade e estudo.").withStyle(ChatFormatting.WHITE)));
 		player.sendSystemMessage(Component.literal("Você agora é " + escolha.nome + ". Aperte V para usar " + escolha.habilidade + ".").withStyle(ChatFormatting.AQUA));
 		if (player.level() instanceof ServerLevel sl) {
@@ -144,6 +146,10 @@ public final class Habilidades {
 	/** Doutrinador — Evangelização: tenta pacificar as criaturas hostis próximas. */
 	private static void evangelizacao(Player player) {
 		ServerLevel level = (ServerLevel) player.level();
+		// Obsessores e zombeteiros também ouvem a Evangelização: são Espíritos a esclarecer, não a destruir.
+		for (var e : level.getEntitiesOfClass(net.minecraft.world.entity.Entity.class, player.getBoundingBox().inflate(8), net.mcreator.modespiritismominecraft.espiritismo.npc.NpcApi::ehEspirito))
+			if (sucesso(player))
+				net.mcreator.modespiritismominecraft.espiritismo.npc.Espiritos.esclarecer(e, player);
 		List<Monster> alvos = level.getEntitiesOfClass(Monster.class, player.getBoundingBox().inflate(8));
 		level.playSound(null, player.blockPosition(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 1.0F, 0.9F);
 		level.sendParticles(ParticleTypes.END_ROD, player.getX(), player.getY() + 1, player.getZ(), 40, 4, 0.5, 4, 0.02);
@@ -185,6 +191,7 @@ public final class Habilidades {
 			level.sendParticles(ParticleTypes.END_ROD, aliado.getX(), aliado.getY() + 2, aliado.getZ(), 15, 0.3, 0.3, 0.3, 0.02);
 			ajudados++;
 		}
+		net.mcreator.modespiritismominecraft.espiritismo.itens.Fluidificacao.registrarPrece(player); // a prece fluidifica a água das jarras próximas
 		player.sendSystemMessage(Component.literal("Prece Sincera: você e " + (ajudados - 1) + " aliado(s) foram fortalecidos.").withStyle(ChatFormatting.AQUA));
 	}
 

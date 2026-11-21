@@ -241,3 +241,31 @@ if __name__ == "__main__":
     livro()
     kardec()
     print("Texturas geradas em", os.path.normpath(RAIZ))
+
+
+# ------------------------------------------------------------------ Bússola Espiritual (16x16)
+def bussola():
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    cx, cy = 7.5, 7.5
+    for y in range(16):
+        for x in range(16):
+            d = ((x - cx) ** 2 + (y - cy) ** 2) ** 0.5
+            if d <= 7.2:
+                if d > 6.0:
+                    c = hexc("6B5A3A") if d > 6.6 else hexc("C9A23C")  # aro dourado
+                else:
+                    c = hexc("1E3550") if (x + y) % 5 else hexc("24405E")  # mostrador azul-noite
+                img.putpixel((x, y), var(c, 4))
+    # agulha: ponta clara (luz) para cima-direita, cauda escura
+    for i, (x, y) in enumerate([(10, 4), (9, 5), (8, 6), (7, 7)]):
+        img.putpixel((x, y), hexc("F3F7FF") if i < 2 else hexc("9FD6FF"))
+    for x, y in [(6, 8), (5, 9), (4, 10)]:
+        img.putpixel((x, y), hexc("5B6B80"))
+    img.putpixel((7, 8), hexc("E8CF7A"))
+    # brilho
+    for x, y in [(4, 3), (3, 4)]:
+        img.putpixel((x, y), (190, 220, 255, 255))
+    img.save(os.path.join(RAIZ, "item", "bussola_espiritual.png"))
+
+
+bussola()

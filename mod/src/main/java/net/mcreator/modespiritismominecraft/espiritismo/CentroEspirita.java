@@ -27,12 +27,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.ChatFormatting;
 
-import net.mcreator.modespiritismominecraft.init.ModEspiritismoMinecraftModEntities;
+import net.mcreator.modespiritismominecraft.espiritismo.npc.NpcApi;
 import net.mcreator.modespiritismominecraft.init.ModEspiritismoMinecraftModBlocks;
 
 /**
  * Centro Espírita Allan Kardec (doc: "Centro Espírita"). Construído uma vez por mundo, perto do
- * ponto de spawn, quando o primeiro jogador entra. Dentro ficam Allan Kardec, Chico Xavier e Haroldo Dutra.
+ * ponto de spawn, quando o primeiro jogador entra. Dentro ficam o Dirigente, o Passista e a Evangelizadora (tutorial).
  * <p>
  * Planta (13 x 11), porta ao norte (z = 0):
  * <pre>
@@ -205,7 +205,7 @@ public final class CentroEspirita {
 				set(level, o.offset(x, 1, z), banco);
 		for (int x = 4; x <= 8; x++)
 			set(level, o.offset(x, 1, 8), Blocks.SPRUCE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP));
-		set(level, o.offset(6, 2, 8), ModEspiritismoMinecraftModBlocks.LIVRO.get().defaultBlockState());
+		set(level, o.offset(6, 2, 8), net.mcreator.modespiritismominecraft.espiritismo.itens.RegistroItens.LIVRO_1857.get().defaultBlockState());
 		for (int x : new int[]{4, 8})
 			set(level, o.offset(x, 2, 8), Blocks.WHITE_CANDLE.defaultBlockState().setValue(CandleBlock.LIT, true));
 		for (int x : new int[]{5, 7})
@@ -213,7 +213,7 @@ public final class CentroEspirita {
 		for (int y = 1; y <= 2; y++)
 			for (int x : new int[]{1, 2, 3, 9, 10, 11})
 				set(level, o.offset(x, y, 9), Blocks.BOOKSHELF.defaultBlockState());
-		set(level, o.offset(11, 1, 7), Blocks.WATER_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3));
+		set(level, o.offset(11, 1, 7), net.mcreator.modespiritismominecraft.espiritismo.itens.RegistroItens.JARRA_AGUA.get().defaultBlockState());
 		set(level, o.offset(1, 1, 1), Blocks.POTTED_FERN.defaultBlockState());
 		set(level, o.offset(11, 1, 1), Blocks.POTTED_FERN.defaultBlockState());
 		for (int[] l : new int[][]{{3, 3}, {9, 3}, {3, 7}, {9, 7}, {6, 5}})
@@ -234,9 +234,10 @@ public final class CentroEspirita {
 		if (!level.isPositionEntityTicking(o) || !level.isPositionEntityTicking(o.offset(LARGURA - 1, 0, PROFUNDIDADE - 1)))
 			return;
 		AABB area = new AABB(o.getX(), o.getY(), o.getZ(), o.getX() + LARGURA, o.getY() + 6, o.getZ() + PROFUNDIDADE).inflate(8);
-		colocarSeFaltar(level, area, ModEspiritismoMinecraftModEntities.ALLAN_KARDEC.get(), o.offset(6, 1, 9));
-		colocarSeFaltar(level, area, ModEspiritismoMinecraftModEntities.CHICO_XAVIER.get(), o.offset(9, 1, 7));
-		colocarSeFaltar(level, area, ModEspiritismoMinecraftModEntities.HAROLDO_DUTRA.get(), o.offset(3, 1, 7));
+		// Kardec, Chico e Haroldo ficam em locais especiais pelo mundo; aqui atendem os trabalhadores do Centro.
+		colocarSeFaltar(level, area, NpcApi.DIRIGENTE.get(), o.offset(6, 1, 9));
+		colocarSeFaltar(level, area, NpcApi.PASSISTA.get(), o.offset(9, 1, 7));
+		colocarSeFaltar(level, area, NpcApi.EVANGELIZADORA.get(), o.offset(3, 1, 7));
 	}
 
 	private static void colocarSeFaltar(ServerLevel level, AABB area, EntityType<? extends PathfinderMob> tipo, BlockPos pos) {

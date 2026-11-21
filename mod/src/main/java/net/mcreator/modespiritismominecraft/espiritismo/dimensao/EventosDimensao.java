@@ -104,6 +104,12 @@ public final class EventosDimensao {
 				Planos.msg(p, ChatFormatting.GRAY,
 						"A perturbação que segue a morte do corpo é passageira, e tanto mais breve quanto mais o Espírito se desprendeu da matéria pelo bem praticado (LE, q. 163–165).");
 				nadaMaterial(p);
+				net.mcreator.modespiritismominecraft.espiritismo.Jornada.conquista(p, "nosso_lar");
+				// O bem feito em silêncio aparece agora (ESE, cap. XIII).
+				int discretas = p.getData(net.mcreator.modespiritismominecraft.espiritismo.Moralidade.CARIDADE_OCULTA);
+				if (discretas > 0)
+					Planos.msg(p, ChatFormatting.GOLD, "Um benfeitor lhe mostra seus registros: " + discretas + (discretas == 1 ? " boa ação feita" : " boas ações feitas")
+							+ " em silêncio, sem esperar nada em troca. Nenhuma delas se perdeu.");
 				Planos.msg(p, ChatFormatting.GRAY, "Explore a colônia. Para renascer na Terra, procure o Ministério do Auxílio, a oeste da praça.");
 			}
 			case UMBRAL -> {
@@ -238,14 +244,16 @@ public final class EventosDimensao {
 		Planos.msg(p, ChatFormatting.GRAY, "Todos os Espíritos são criados simples e ignorantes e progridem pelo próprio esforço — ninguém está condenado a ficar para trás.");
 	}
 
-	@SubscribeEvent
+	// Prioridade alta: roda antes do EventosNpc, que cancela o clique em Espíritos.
+	@SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.HIGH)
 	public static void cliqueEntidade(PlayerInteractEvent.EntityInteract event) {
 		if (event.getHand() != InteractionHand.MAIN_HAND || !(event.getEntity() instanceof ServerPlayer p) || p.level().dimension() != Planos.UMBRAL)
 			return;
 		EntityType<?> sofredor = ConstrucoesPlanos.tipo("espirito_sofredor");
 		if (sofredor == null || event.getTarget().getType() != sofredor)
 			return;
-		if (Moralidade.pronto(p, "dim_sofredor_" + event.getTarget().getUUID(), 20 * 60 * 5))
+		// Uma recarga por jogador (não por sofredor), para não acumular chaves salvas para sempre.
+		if (Moralidade.pronto(p, "dim_sofredor", 20 * 60))
 			Planos.ajudouSofredor(p);
 	}
 

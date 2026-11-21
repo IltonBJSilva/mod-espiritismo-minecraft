@@ -152,6 +152,7 @@ public final class Planos {
 
 	/** Os socorristas levam o jogador do Umbral (ou de onde estiver) às Câmaras de Retificação de Nosso Lar. */
 	public static void resgatar(ServerPlayer p) {
+		net.mcreator.modespiritismominecraft.espiritismo.Jornada.conquista(p, "resgate");
 		ServerLevel nl = p.level().getServer().getLevel(NOSSO_LAR);
 		if (nl == null)
 			return;
@@ -164,7 +165,7 @@ public final class Planos {
 		p.removeEffect(MobEffects.SLOWNESS);
 		p.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0));
 		if (doUmbral)
-			Moralidade.alterar(p, 3, "Arrependimento sincero");
+			Moralidade.ganhoRotina(p, 3, "Arrependimento sincero");
 		msg(p, ChatFormatting.AQUA, "Mãos amigas o amparam. Os socorristas o trouxeram, pelo Posto de Socorro, até as Câmaras de Retificação de Nosso Lar.");
 		msg(p, ChatFormatting.GRAY, "Ninguém fica esquecido: basta o arrependimento sincero e a vontade de melhorar para que o auxílio chegue. Para voltar à Terra, procure o Ministério do Auxílio (a oeste da praça).");
 	}
@@ -185,7 +186,7 @@ public final class Planos {
 	public static void ajudouSofredor(ServerPlayer p) {
 		if (p.level().dimension() != UMBRAL)
 			return;
-		Moralidade.alterar(p, 2, "Consolou um Espírito sofredor");
+		Moralidade.ganhoRotina(p, 2, "Consolou um Espírito sofredor");
 		somarArrependimento(p, 2);
 		msg(p, ChatFormatting.AQUA, "Ao consolar quem sofre ao seu lado, você mesmo se sente mais leve.");
 	}
@@ -203,8 +204,9 @@ public final class Planos {
 			return;
 		p.setData(RegistroDimensao.RESGATE_EM, p.level().getGameTime() + ESPERA_SOCORRISTA);
 		EntityType<?> soc = ConstrucoesPlanos.tipo("socorrista");
-		if (soc != null)
-			ConstrucoesPlanos.colocar((ServerLevel) p.level(), soc, p.blockPosition().relative(p.getDirection(), 2), p.getYRot() + 180F);
+		if (soc != null && ConstrucoesPlanos.colocar((ServerLevel) p.level(), soc, p.blockPosition().relative(p.getDirection(), 2), p.getYRot() + 180F)
+				instanceof net.mcreator.modespiritismominecraft.espiritismo.npc.EspiritoEntity socorrista)
+			socorrista.acompanhar(null, 20 * 15); // some depois do resgate
 		msg(p, ChatFormatting.GOLD, "Uma luz suave se aproxima pela névoa: é um socorrista. — Venha, irmão. O seu pedido foi ouvido.");
 	}
 
@@ -229,6 +231,7 @@ public final class Planos {
 
 	/** Volta à Terra numa nova existência: local seguro distante do anterior, esquecimento do passado e uma prova. */
 	public static BlockPos reencarnar(ServerPlayer p) {
+		net.mcreator.modespiritismominecraft.espiritismo.Jornada.conquista(p, "reencarnacao");
 		ServerLevel ow = p.level().getServer().overworld();
 		long ult = p.getData(RegistroDimensao.ULTIMA_TERRA);
 		BlockPos base = ult == Long.MIN_VALUE ? ow.getRespawnData().pos() : BlockPos.of(ult);
