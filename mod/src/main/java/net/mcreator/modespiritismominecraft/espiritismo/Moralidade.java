@@ -90,6 +90,10 @@ public final class Moralidade {
 	public static final Supplier<AttachmentType<Integer>> CARIDADE_OCULTA = ATTACHMENTS.register("caridade_oculta",
 			() -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("valor")).copyOnDeath().build());
 
+	/** Estado espiritual atual (índice de {@code estado.EstadoEspiritual}). Ver {@code estado.Estados}. Sincronizado para o HUD. */
+	public static final Supplier<AttachmentType<Integer>> ESTADO = ATTACHMENTS.register("estado_espiritual",
+			() -> AttachmentType.builder(() -> 0).serialize(Codec.INT.fieldOf("valor")).sync(Moralidade::soDono, ByteBufCodecs.VAR_INT).copyOnDeath().build());
+
 	/** Máximo de moralidade ganho por dia de jogo com ações de rotina (negociar, plantar...). */
 	public static final int TETO_ROTINA_DIA = 8;
 
